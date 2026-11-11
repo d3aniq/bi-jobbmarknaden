@@ -1,0 +1,49 @@
+table Yrkesgrupp
+	lineageTag: 5594e237-924b-56c4-8801-d6defb94f367
+
+	column ssyk4_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: ssyk4_key
+		lineageTag: 4a92561f-4421-56ff-a705-62f467bb9994
+
+	column SSYK
+		dataType: string
+		summarizeBy: none
+		sourceColumn: ssyk4
+		lineageTag: f2dd70b1-e95d-5892-99ab-152180ea4837
+
+	column Yrkesgrupp
+		dataType: string
+		summarizeBy: none
+		sourceColumn: ssyk4_label
+		lineageTag: 5100256a-9d38-5b9a-85d2-0679258d27b2
+
+	column 'SSYK 3'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: ssyk3
+		lineageTag: 596b5c3a-ffc3-5a20-81e9-e18f79a6c1f5
+
+	column 'SSYK 1'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: ssyk1
+		lineageTag: 352cb442-9862-5a61-9741-c5a667b01e0d
+
+	column 'Yrkesområde'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: ssyk1_label
+		lineageTag: ae93a5ce-f6b6-5f94-bdd3-0f150319bda9
+
+	partition Yrkesgrupp = m
+		mode: import
+		source =
+				let
+				    Källa = Parquet.Document(File.Contents(DataFolder & "\dim_occupation_group.parquet"))
+				in
+				    Källa

@@ -1,0 +1,85 @@
+table Annonsvolym
+	lineageTag: 5c619865-0a9e-5873-8f35-0a4fa33aa8ef
+
+	column month_start
+		dataType: dateTime
+		isHidden
+		summarizeBy: none
+		sourceColumn: month_start
+		lineageTag: ea73bd0b-e94c-5c0c-9e68-9bc504e4132d
+
+	column municipality_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: municipality_key
+		lineageTag: da27e5f0-07e5-5a53-9564-0a9395f13a07
+
+	column ssyk4_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: ssyk4_key
+		lineageTag: 89bbc285-7e74-549b-a7ff-0c4927b92301
+
+	column 'Arbetsgivartyp (alla)'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: employer_type
+		lineageTag: d065a51b-57fc-5d2f-a90e-892d26889ff7
+
+	column n_ads
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: n_ads
+		lineageTag: 38e849e2-2f49-59fd-af1b-564ddfd56d7b
+
+	column n_vacancies
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: n_vacancies
+		lineageTag: ead72e9a-9dcd-5e1f-baa3-2a5a3d7b43ab
+
+	column n_data_ads
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: n_data_ads
+		lineageTag: 77bf2e53-7920-5e1f-8ea7-db54b661e4e8
+
+	column n_core_bi_ads
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: n_core_bi_ads
+		lineageTag: 930f31ea-a253-535d-8dcb-dd90506adc12
+
+	column n_power_bi_ads
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: n_power_bi_ads
+		lineageTag: ca35bc35-980f-5957-b820-14c942a464e8
+
+	column n_remote_ads
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: n_remote_ads
+		lineageTag: 5b5c342c-4e45-5d5d-b14a-a1c51775f6b3
+
+	partition Annonsvolym = m
+		mode: import
+		source =
+				let
+				    Källa = Parquet.Document(File.Contents(DataFolder & "\fact_ad_volume.parquet"))
+				in
+				    Källa

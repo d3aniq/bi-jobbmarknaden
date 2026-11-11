@@ -80,6 +80,18 @@ models:
           - relationships:
               arguments: {to: ref('dim_occupation_group'), field: ssyk4_key}
 
+  - name: fact_term_source
+    description: Ordlistan mot JobTechs berikning, per term och år.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [term_id, year]
+    columns:
+      - name: term_id
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_term'), field: term_id}
+
   - name: dim_date
     columns:
       - name: date

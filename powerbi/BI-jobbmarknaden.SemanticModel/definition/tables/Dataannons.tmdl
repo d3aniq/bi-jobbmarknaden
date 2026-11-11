@@ -1,0 +1,151 @@
+table Dataannons
+	lineageTag: ec699c7f-da0b-5357-a31d-e8bcac7dd593
+
+	column ad_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: ad_id
+		lineageTag: 2076686e-43c5-5dfe-9be3-4df5bedfefc3
+
+	column published_date
+		dataType: dateTime
+		isHidden
+		summarizeBy: none
+		sourceColumn: published_date
+		lineageTag: 50acc3a2-1eec-50f8-9380-19900277e5cd
+
+	column municipality_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: municipality_key
+		lineageTag: 82859e24-42eb-5002-a380-29c898035baa
+
+	column ssyk4_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: ssyk4_key
+		lineageTag: ba430111-8763-5620-b28d-1745e2bf1e57
+
+	column occupation_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: occupation_key
+		lineageTag: c1a3c7ee-5507-5b0a-a2ef-3c8e17d99b49
+
+	column employer_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: employer_key
+		lineageTag: 35854a0a-83e1-5914-85be-07e2ec72260e
+
+	column Arbetsgivartyp
+		dataType: string
+		summarizeBy: none
+		sourceColumn: employer_type
+		lineageTag: 08f67b59-bfc6-57c9-a032-c0b3cbf5e24e
+
+	column 'Antal tjänster'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: number_of_vacancies
+		lineageTag: b45b990f-ef60-55d8-b31b-4062d2f12f86
+
+	column Distans
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: remote_work
+		lineageTag: bc2effc6-1076-5c0d-8533-5a3fce6bcd2f
+
+	column 'Kräver erfarenhet'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: experience_required
+		lineageTag: 7467cfe3-a392-540f-a7c5-d5b5ea73dc46
+
+	column 'Anställningsform'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: employment_type
+		lineageTag: 199ebfc6-a2d2-528f-a75c-ae8f3257b03b
+
+	column Arbetstid
+		dataType: string
+		summarizeBy: none
+		sourceColumn: working_hours
+		lineageTag: 270b6715-8479-5ad5-9737-d18a51959840
+
+	column scope_min
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: scope_min
+		lineageTag: 654bf345-7bb2-5929-b9a4-20354df1b71c
+
+	column scope_max
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: scope_max
+		lineageTag: bb45ab06-2c0b-5992-92a7-442e65629d99
+
+	column 'Antal termer'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: n_terms
+		lineageTag: aad33a12-1163-5904-a63b-c27840b90734
+
+	column 'Nämner BI-kärnterm'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: mentions_core_bi
+		lineageTag: 51dfefd5-5fac-51bc-961b-ce54a0a6fb21
+
+	column 'Nämner Power BI'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: mentions_power_bi
+		lineageTag: 02184384-369a-51d3-ac84-e6bedba4a929
+
+	column 'Datayrke enligt arbetsgivaren'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_data_occupation
+		lineageTag: b5e017d6-593e-5c08-b4cd-f29f8efe0962
+
+	column data_role_family
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: data_role_family
+		lineageTag: edacaca3-91d9-5f03-8d71-d6ad22605c96
+
+	column 'Ortskälla'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: location_source
+		lineageTag: 0a636632-1c2b-5f9d-ae77-2cc1eac75099
+
+	column 'Yrkeskälla'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: occupation_source
+		lineageTag: e31b3a52-c4b1-512c-8e30-941a07cfe512
+
+	partition Dataannons = m
+		mode: import
+		source =
+				let
+				    Källa = Parquet.Document(File.Contents(DataFolder & "\fact_job_ad.parquet"))
+				in
+				    Källa

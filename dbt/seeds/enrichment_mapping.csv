@@ -1,0 +1,29 @@
+enrichment_label,term_id
+power bi,power_bi
+powerbi,power_bi
+tableau,tableau
+qlikview,qlik
+qlik sense,qlik
+qlik,qlik
+excel,excel
+databricks,databricks
+snowflake,snowflake
+dbt,dbt
+sql,sql
+mysql,sql
+postgresql,sql
+microsoft sql,sql
+pl-sql,sql
+sql-databaser,sql
+sql databases,sql
+sql-server,sql_server
+sql server,sql_server
+python,python
+microsoft azure,azure
+azure,azure
+windows azure,azure
+aws,aws
+amazon web services,aws
+etl,etl
+data warehouse,data_warehouse
+datawarehouse,data_warehouse

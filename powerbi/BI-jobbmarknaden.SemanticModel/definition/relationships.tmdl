@@ -1,0 +1,51 @@
+relationship a7c810ca-5d66-5da4-a7e8-ed0632aa99df
+	fromColumn: Dataannons.published_date
+	toColumn: Datum.Datum
+
+relationship 4d21c0c6-36a6-51f0-915a-3473b8616e6f
+	fromColumn: Annonsvolym.month_start
+	toColumn: Datum.Datum
+
+relationship 7fcabbc9-b029-5f70-8de2-3c5c6fdb3f84
+	fromColumn: Dataannons.municipality_key
+	toColumn: Kommun.municipality_key
+
+relationship 5dd24a5b-6d5f-5ea7-9e05-5817415106da
+	fromColumn: Annonsvolym.municipality_key
+	toColumn: Kommun.municipality_key
+
+relationship 7850362a-2799-547d-a484-b04780e73deb
+	fromColumn: Kommun.region_key
+	toColumn: 'Län'.region_key
+
+relationship 8bb5d4ae-5ea8-532f-a4b0-2fe0e3cb9cbf
+	fromColumn: 'Anställda (SCB)'.region_key
+	toColumn: 'Län'.region_key
+
+relationship 108fddbf-9741-53bf-a01f-3b3ce650dca7
+	fromColumn: Dataannons.ssyk4_key
+	toColumn: Yrkesgrupp.ssyk4_key
+
+relationship e37a6358-c4c1-50ad-ac09-f5bfdc5cef3b
+	fromColumn: Annonsvolym.ssyk4_key
+	toColumn: Yrkesgrupp.ssyk4_key
+
+relationship 1e7d4d7b-d594-5741-a826-45438e22e677
+	fromColumn: 'Anställda (SCB)'.ssyk4_key
+	toColumn: Yrkesgrupp.ssyk4_key
+
+relationship b8b7fd96-f38a-5bf8-8776-b9487ed7a250
+	fromColumn: Dataannons.occupation_key
+	toColumn: Yrke.occupation_key
+
+relationship 4a590256-28b5-5fd9-8bfd-b4bbb9b036f8
+	fromColumn: Dataannons.employer_key
+	toColumn: Arbetsgivare.Organisationsnummer
+
+relationship 7af58396-5322-5678-bf81-04ba04f57348
+	fromColumn: 'Annons-term'.ad_id
+	toColumn: Dataannons.ad_id
+
+relationship 4c7e457b-d8e0-541a-9488-6af40a6f14b1
+	fromColumn: 'Annons-term'.term_id
+	toColumn: Term.term_id

@@ -1,0 +1,52 @@
+table 'Anställda (SCB)'
+	lineageTag: 042d8f28-a561-5f9e-a158-ae34fb4cfc51
+
+	column year
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: year
+		lineageTag: 8665b7d9-8f9a-53f6-a6ce-759b4ae78c28
+
+	column region_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: region_key
+		lineageTag: 440c5c13-0162-5374-8690-688ae624600c
+
+	column ssyk4_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: ssyk4_key
+		lineageTag: 8adf80fb-9783-509d-8780-c6d37a35d26b
+
+	column employed
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: employed
+		lineageTag: 262aae08-b763-59ba-90cd-55f141c374f2
+
+	column Metod
+		dataType: string
+		summarizeBy: none
+		sourceColumn: method
+		lineageTag: 252d9b19-a563-531a-a218-2aca0df77fdc
+
+	column 'SCB-tabell'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: source_table
+		lineageTag: 826c470f-87e0-5349-8e25-0b0682dd179f
+
+	partition 'Anställda (SCB)' = m
+		mode: import
+		source =
+				let
+				    Källa = Parquet.Document(File.Contents(DataFolder & "\fact_employment.parquet"))
+				in
+				    Källa

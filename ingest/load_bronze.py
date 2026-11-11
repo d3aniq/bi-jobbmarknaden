@@ -24,6 +24,7 @@ import io
 import json
 import sys
 import zipfile
+from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
 
 import pyarrow as pa
@@ -201,14 +202,20 @@ def load_folder(folder: str, schema: pa.Schema, row_fn) -> int:
     if not zips:
         print(f"Inga filer i {src}. Kör download_jobtech.py först.")
         return 1
-    log = []
     for z in zips:
         rel = z.relative_to(LANDING).as_posix()
         if rel not in known:
             raise SystemExit(f"{rel} saknas i manifestet. Bronze läser bara registrerade filer.")
-        r = load_zip(z, out_dir, schema, row_fn)
-        log.append(r)
-        print(f"{folder:>14} {r['period']:>8}  {r['parsed']:>9,} rader  {r['failed']} fel", flush=True)
+    # En process per fil. Filerna är oberoende och JSON-tolkningen är
+    # det som tar tid.
+    log = []
+    with ProcessPoolExecutor(max_workers=min(6, len(zips))) as pool:
+        futures = {pool.submit(load_zip, z, out_dir, schema, row_fn): z for z in zips}
+        for fut in as_completed(futures):
+            r = fut.result()
+            log.append(r)
+            print(f"{folder:>14} {r['period']:>8}  {r['parsed']:>9,} rader  {r['failed']} fel", flush=True)
+    log.sort(key=lambda r: r["source_file"])
     with open(out_dir / "_load_log.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=["source_file", "period", "lines", "parsed", "failed"])
         w.writeheader()

@@ -1,0 +1,19 @@
+model Model
+	culture: sv-SE
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: sv-SE
+
+ref table 'Mått'
+ref table Datum
+ref table Term
+ref table Yrkesgrupp
+ref table Yrke
+ref table 'Län'
+ref table Kommun
+ref table Arbetsgivare
+ref table Dataannons
+ref table 'Annons-term'
+ref table Annonsvolym
+ref table 'Anställda (SCB)'
+ref table 'Term B'

@@ -1,0 +1,36 @@
+table Yrke
+	lineageTag: ceb96260-7240-5a4d-8ad8-6ea79ec5335c
+
+	column occupation_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: occupation_key
+		lineageTag: 0d2233e0-9b9c-565a-ad09-5bb9fd07a0db
+
+	column Yrke
+		dataType: string
+		summarizeBy: none
+		sourceColumn: occupation_label
+		lineageTag: c8567e97-5238-542a-a6fc-8465f15c552b
+
+	column 'SSYK (yrke)'
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: ssyk4
+		lineageTag: 60a926bf-b456-5031-8912-9dd0217e890f
+
+	column Datayrkesfamilj
+		dataType: string
+		summarizeBy: none
+		sourceColumn: data_role_family
+		lineageTag: 12f830a0-87f9-543b-ac39-d3fbfc1fa954
+
+	partition Yrke = m
+		mode: import
+		source =
+				let
+				    Källa = Parquet.Document(File.Contents(DataFolder & "\dim_occupation.parquet"))
+				in
+				    Källa

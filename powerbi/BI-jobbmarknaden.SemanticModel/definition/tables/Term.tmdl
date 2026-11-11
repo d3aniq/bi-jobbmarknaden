@@ -1,0 +1,63 @@
+table Term
+	lineageTag: 016bbc0b-2fc5-5ebd-8259-6eb19e023d24
+
+	column term_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: term_id
+		lineageTag: 21e8dd75-2c79-5cb4-81fd-da452efc490a
+
+	column Term
+		dataType: string
+		summarizeBy: none
+		sourceColumn: term
+		lineageTag: 16715d02-25df-5fd7-b8dc-68146653c258
+
+	column Kategori
+		dataType: string
+		summarizeBy: none
+		sourceColumn: category
+		sortByColumn: category_sort
+		lineageTag: 441c6c33-3248-54ed-a0ca-eebbe3455496
+
+	column category_sort
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: category_sort
+		lineageTag: aea121b4-8466-57c2-8391-f5fdf17779a9
+
+	column 'BI-kärnterm'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_core_bi
+		lineageTag: 9fb48f6f-c81c-5506-bfc2-de3ccbccf4b0
+
+	column 'Leverantör'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: vendor
+		lineageTag: 69810c39-b60d-57e8-b7b4-ad59abe2dffb
+
+	column 'Lanseringsår'
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: launched_year
+		lineageTag: 1e9f3b9e-a499-53f8-9eb6-5c53e9ef1f9f
+
+	column Not
+		dataType: string
+		summarizeBy: none
+		sourceColumn: note
+		lineageTag: fb94edf6-4c69-51cb-92b1-c0c886c3c8e5
+
+	partition Term = m
+		mode: import
+		source =
+				let
+				    Källa = Parquet.Document(File.Contents(DataFolder & "\dim_term.parquet"))
+				in
+				    Källa

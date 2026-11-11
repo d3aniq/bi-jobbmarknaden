@@ -1,0 +1,30 @@
+table 'Annons-term'
+	lineageTag: cc19c3b9-94dd-5d15-8a7b-bfff7bbaf4bb
+
+	column ad_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: ad_id
+		lineageTag: 04c02308-6583-5378-bfee-9e15b7266750
+
+	column term_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: term_id
+		lineageTag: c362d78a-c165-5d9b-b9a4-cdb343b808ab
+
+	column 'I rubriken'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: in_headline
+		lineageTag: b57eaea9-dc57-5a69-ba44-c7ebefd64678
+
+	partition 'Annons-term' = m
+		mode: import
+		source =
+				let
+				    Källa = Parquet.Document(File.Contents(DataFolder & "\bridge_ad_term.parquet"))
+				in
+				    Källa

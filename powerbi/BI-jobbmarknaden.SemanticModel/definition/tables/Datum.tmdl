@@ -1,0 +1,90 @@
+table Datum
+	lineageTag: ef314980-6469-5d89-b179-07fda0ec054f
+	dataCategory: Time
+
+	column Datum
+		dataType: dateTime
+		isKey
+		formatString: yyyy-mm-dd
+		summarizeBy: none
+		sourceColumn: date
+		lineageTag: fabcc737-01a3-5db5-bfc0-25d8c2250539
+
+	column 'År'
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: year
+		lineageTag: 45f12eb1-de47-5f48-905b-0962cbdd6ec3
+
+	column Kvartal
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: quarter
+		lineageTag: 27e8d551-30b5-5f7f-ad9e-a54814593672
+
+	column 'År-kvartal'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: year_quarter
+		sortByColumn: year_quarter_sort
+		lineageTag: 9b6444d0-4c21-5e49-93ae-7da73350c687
+
+	column year_quarter_sort
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: year_quarter_sort
+		lineageTag: 9c9c2e7c-7868-589d-949e-61aae54f0257
+
+	column 'Månad'
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: month
+		lineageTag: 287a7921-374b-5931-9697-759d9ed2b130
+
+	column 'Månadsstart'
+		dataType: dateTime
+		formatString: yyyy-mm
+		summarizeBy: none
+		sourceColumn: month_start
+		lineageTag: 48a15f5e-4ce4-5c9d-8636-4f6fda7cca16
+
+	column 'År-månad'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: year_month
+		sortByColumn: 'Månadsstart'
+		lineageTag: ceea3053-d649-5ede-978c-f905ee510eb1
+
+	column 'Veckodag nr'
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: weekday_number
+		lineageTag: 29b5b2b8-b12a-598a-b888-5ec6cc8fd310
+
+	column Vecka
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: iso_week
+		lineageTag: 61b54898-79bc-54e1-81dc-40286ffc3e70
+
+	column Helg
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_weekend
+		lineageTag: d536262d-8caa-5e27-be3a-d532931acee4
+
+	partition Datum = m
+		mode: import
+		source =
+				let
+				    Källa = Parquet.Document(File.Contents(DataFolder & "\dim_date.parquet"))
+				in
+				    Källa

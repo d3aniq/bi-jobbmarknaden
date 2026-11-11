@@ -1,0 +1,183 @@
+table Mått
+	lineageTag: bf687d9c-79bd-5a7a-a828-294220df7319
+
+	/// Alla unika annonser i Platsbanken (nämnaren för andelar).
+	measure Annonser = SUM('Annonsvolym'[n_ads])
+		formatString: #,0
+		displayFolder: 1 Volym
+		lineageTag: 68c0bb0a-3bc0-5040-b592-184b031de234
+
+	/// Annonser som nämner en BI-kärnterm eller där arbetsgivaren valt ett datayrke.
+	measure Dataannonser = COUNTROWS('Dataannons')
+		formatString: #,0
+		displayFolder: 1 Volym
+		lineageTag: ee7452d7-5584-5af6-965f-21dda1a1b3bc
+
+	/// Dataannonser som andel av alla annonser.
+	measure 'Andel dataannonser' = DIVIDE([Dataannonser], [Annonser])
+		formatString: 0.00%
+		displayFolder: 1 Volym
+		lineageTag: 2c1128c8-d19c-57e0-a916-085dcbb37594
+
+	measure 'Annonser som nämner Power BI' = SUM('Annonsvolym'[n_power_bi_ads])
+		formatString: #,0
+		displayFolder: 1 Volym
+		lineageTag: 5e977e2d-d609-517d-abe2-8f522a2ade8e
+
+	/// Antal annonser som nämner Power BI per 1 000 annonser totalt.
+	measure 'Power BI per 1 000 annonser' = DIVIDE([Annonser som nämner Power BI], [Annonser]) * 1000
+		formatString: 0.0
+		displayFolder: 1 Volym
+		lineageTag: 25a53c3a-afa8-5197-b8f8-8ec4cc43e598
+
+	/// Unika dataannonser som nämner minst en av de valda termerna. Filter på datum, ort och yrke når bryggan via Dataannons (en-till-många), utan dubbelriktad filtrering.
+	measure 'Annonser med term' = DISTINCTCOUNT('Annons-term'[ad_id])
+		formatString: #,0
+		displayFolder: 2 Termer
+		lineageTag: 4c2cbe3c-04f6-5d58-a73e-372d0a6389f5
+
+	/// Andel av dataannonserna som nämner termen.
+	measure 'Andel som nämner term' = DIVIDE([Annonser med term], [Dataannonser])
+		formatString: 0.0%
+		displayFolder: 2 Termer
+		lineageTag: 18ad159e-d5a5-542a-81f3-acaac0b46a51
+
+	measure 'Andel som nämner term, fg år' = CALCULATE([Andel som nämner term], SAMEPERIODLASTYEAR('Datum'[Datum]))
+		formatString: 0.0%
+		displayFolder: 2 Termer
+		lineageTag: 18ab8264-2852-5811-860f-d0bddd0c158d
+
+	/// Förändring i andel mot samma period året innan, i procentenheter.
+	measure 'Förändring, procentenheter' =
+			VAR nu = [Andel som nämner term]
+			VAR fg = [Andel som nämner term, fg år]
+			RETURN IF(NOT ISBLANK(nu) && NOT ISBLANK(fg), (nu - fg) * 100)
+		formatString: +0.0;-0.0;0.0
+		displayFolder: 2 Termer
+		lineageTag: df4ee495-79a9-5b05-9058-a9a472266696
+
+	measure 'Rang term' =
+			IF(
+			    ISINSCOPE('Term'[Term]),
+			    RANKX(ALLSELECTED('Term'[Term]), [Annonser med term], , DESC, DENSE)
+			)
+		formatString: 0
+		displayFolder: 2 Termer
+		lineageTag: 28662aa2-c2b4-5fa6-b98f-76aa2b2a093b
+
+	/// Andel av annonserna med term A (Term) som också nämner term B (Term B, frikopplad kopia).
+	measure 'Samförekomst' =
+			VAR annonserA = VALUES('Annons-term'[ad_id])
+			VAR termerB = VALUES('Term B'[term_id_b])
+			VAR annonserB =
+			    CALCULATETABLE(
+			        VALUES('Annons-term'[ad_id]),
+			        REMOVEFILTERS('Term'),
+			        TREATAS(termerB, 'Term'[term_id])
+			    )
+			RETURN
+			    DIVIDE(COUNTROWS(INTERSECT(annonserA, annonserB)), COUNTROWS(annonserA))
+		formatString: 0%
+		displayFolder: 2 Termer
+		lineageTag: c730f43d-5654-56b1-8ab8-c7ee37d310ee
+
+	measure 'Dataannonser fg år' = CALCULATE([Dataannonser], SAMEPERIODLASTYEAR('Datum'[Datum]))
+		formatString: #,0
+		displayFolder: 3 Tid
+		lineageTag: 0a796454-12a6-56aa-8cd2-876e5e2cedf9
+
+	measure 'Dataannonser, förändring' = DIVIDE([Dataannonser] - [Dataannonser fg år], [Dataannonser fg år])
+		formatString: +0%;-0%;0%
+		displayFolder: 3 Tid
+		lineageTag: 7b5beafc-37d4-5bf1-8e3c-164d6e9df8ef
+
+	measure 'Dataannonser, rullande 12 mån' =
+			CALCULATE(
+			    [Dataannonser],
+			    DATESINPERIOD('Datum'[Datum], MAX('Datum'[Datum]), -12, MONTH)
+			)
+		formatString: #,0
+		displayFolder: 3 Tid
+		lineageTag: 9b0635d3-3141-5eae-b52a-4632838d1d72
+
+	/// Anställda enligt SCB:s yrkesregister för valda år, län och yrkesgrupper. SCB saknar år efter 2024.
+	measure 'Anställda' =
+			VAR ar = VALUES('Datum'[År])
+			RETURN CALCULATE(SUM('Anställda (SCB)'[employed]), TREATAS(ar, 'Anställda (SCB)'[year]))
+		formatString: #,0
+		displayFolder: 4 SCB
+		lineageTag: 7c152b68-3264-503a-b247-9b7a0b3cf536
+
+	/// Räknas bara för år där SCB har siffror, så att 2025–2026 inte ger en för hög kvot.
+	measure 'Dataannonser per 1 000 anställda' =
+			VAR perAr =
+			    ADDCOLUMNS(VALUES('Datum'[År]), "@annonser", [Dataannonser], "@anstallda", [Anställda])
+			VAR medScb = FILTER(perAr, NOT ISBLANK([@anstallda]))
+			RETURN DIVIDE(SUMX(medScb, [@annonser]), SUMX(medScb, [@anstallda])) * 1000
+		formatString: 0.00
+		displayFolder: 4 SCB
+		lineageTag: e6d69954-55d6-5a54-a6f4-4301051af9de
+
+	measure 'Annonser per 1 000 anställda' =
+			VAR perAr =
+			    ADDCOLUMNS(VALUES('Datum'[År]), "@annonser", [Annonser], "@anstallda", [Anställda])
+			VAR medScb = FILTER(perAr, NOT ISBLANK([@anstallda]))
+			RETURN DIVIDE(SUMX(medScb, [@annonser]), SUMX(medScb, [@anstallda])) * 1000
+		formatString: 0.0
+		displayFolder: 4 SCB
+		lineageTag: 93f55c4d-dd33-5af6-bbd5-bf765e8cd14f
+
+	/// Andel dataannonser som anger distansarbete.
+	measure 'Andel distans' = DIVIDE(CALCULATE([Dataannonser], 'Dataannons'[Distans] = TRUE()), [Dataannonser])
+		formatString: 0.0%
+		displayFolder: 5 Villkor
+		lineageTag: 8436b641-085d-581c-8ac9-35b8b3a98ecf
+
+	measure 'Andel distans, alla annonser' = DIVIDE(SUM('Annonsvolym'[n_remote_ads]), [Annonser])
+		formatString: 0.0%
+		displayFolder: 5 Villkor
+		lineageTag: 3ba3bb76-88ff-51a2-8ce7-38add616b715
+
+	measure 'Andel kräver erfarenhet' = DIVIDE(CALCULATE([Dataannonser], 'Dataannons'[Kräver erfarenhet] = TRUE()), [Dataannonser])
+		formatString: 0.0%
+		displayFolder: 5 Villkor
+		lineageTag: 0e6a9d48-2df2-57ad-8781-143d932f1227
+
+	/// Bland dataannonser med känd sektor (organisationsnummer finns från 2021).
+	measure 'Andel offentlig sektor' =
+			DIVIDE(CALCULATE([Dataannonser], 'Dataannons'[Arbetsgivartyp] = "offentlig sektor"),
+			       CALCULATE([Dataannonser], 'Dataannons'[Arbetsgivartyp] IN {"offentlig sektor", "privat sektor"}))
+		formatString: 0.0%
+		displayFolder: 5 Villkor
+		lineageTag: 4e2cb562-772e-5de9-b030-33fe42052e79
+
+	/// Dataannonser där arbetsgivaren valt ett yrke som inte är ett datayrke, till exempel controller.
+	measure 'Andel utan datayrke' = DIVIDE(CALCULATE([Dataannonser], 'Dataannons'[Datayrke enligt arbetsgivaren] = FALSE()), [Dataannonser])
+		formatString: 0.0%
+		displayFolder: 6 Vad är ett BI-jobb
+		lineageTag: 252c0806-f1c4-50e3-a85e-51ea02fd6977
+
+	measure 'Andel utan ort' = DIVIDE(CALCULATE([Annonser], 'Kommun'[Kommun] = "Län saknas, kommun saknas"), [Annonser])
+		formatString: 0.0%
+		displayFolder: 7 Datakvalitet
+		lineageTag: b9674542-c2f3-5b64-b0fe-771a3cbdbe54
+
+	measure 'Senaste annonsdatum' = MAX('Dataannons'[published_date])
+		formatString: yyyy-mm-dd
+		displayFolder: 7 Datakvalitet
+		lineageTag: 65a5e284-3af9-51f7-8a52-75c3408e38ad
+
+	column Platshållare
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: Platshållare
+		lineageTag: 2c2bd55e-7a3a-5f85-ae7b-e0cfffc28237
+
+	partition Mått = m
+		mode: import
+		source =
+				let
+				    Källa = #table(type table [Platshållare = text], {})
+				in
+				    Källa

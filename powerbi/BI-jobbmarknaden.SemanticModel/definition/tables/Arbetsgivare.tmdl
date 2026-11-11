@@ -1,0 +1,28 @@
+table Arbetsgivare
+	lineageTag: 3f5414e2-f6ce-5749-8757-17b83ae2b760
+
+	column Organisationsnummer
+		dataType: string
+		summarizeBy: none
+		sourceColumn: employer_key
+		lineageTag: 263d48ab-8aa9-571b-adbc-6b1f518a0e77
+
+	column Arbetsgivare
+		dataType: string
+		summarizeBy: none
+		sourceColumn: employer_name
+		lineageTag: 8e6a06f3-a761-58ed-8d3a-b408abdf04cb
+
+	column Sektor
+		dataType: string
+		summarizeBy: none
+		sourceColumn: employer_type
+		lineageTag: 65a6cdf5-8a51-5bf6-a4a1-3fba70034938
+
+	partition Arbetsgivare = m
+		mode: import
+		source =
+				let
+				    Källa = Parquet.Document(File.Contents(DataFolder & "\dim_employer.parquet"))
+				in
+				    Källa

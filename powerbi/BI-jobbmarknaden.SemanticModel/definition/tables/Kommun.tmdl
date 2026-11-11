@@ -1,0 +1,36 @@
+table Kommun
+	lineageTag: 06a93702-5ac5-5fa6-a66b-b9c8d155e92c
+
+	column municipality_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: municipality_key
+		lineageTag: bb510b1c-f8cd-5a36-800b-352961fbbbac
+
+	column Kommun
+		dataType: string
+		summarizeBy: none
+		sourceColumn: municipality_name
+		lineageTag: f4cc1c44-c95d-5f0c-8cbb-b8528f1bb8d5
+
+	column region_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: region_key
+		lineageTag: e366ba96-094a-5202-8ffe-315530971bbc
+
+	column 'Göteborgsregionen'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_gothenburg_region
+		lineageTag: 71f0f77b-49d3-53c0-a3b5-3fd5d219785a
+
+	partition Kommun = m
+		mode: import
+		source =
+				let
+				    Källa = Parquet.Document(File.Contents(DataFolder & "\dim_municipality.parquet"))
+				in
+				    Källa

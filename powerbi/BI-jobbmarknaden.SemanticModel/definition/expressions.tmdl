@@ -1,0 +1,3 @@
+/// Mappen med gold-tabellerna som Parquet. Ändra till repots powerbi/data om du inte kör pipelinen själv.
+expression DataFolder = "C:\data\bi-jobbmarknaden\gold" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 0bf51893-0a0c-593c-97ba-b8ad6fd8bcfc

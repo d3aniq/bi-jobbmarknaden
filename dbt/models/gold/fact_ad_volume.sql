@@ -8,7 +8,7 @@ select
     {{ ssyk4_key('a.ssyk4') }}                                           as ssyk4_key,
     a.employer_type,
     count(*)                                                             as n_ads,
-    sum(a.number_of_vacancies)                                           as n_vacancies,
+    sum(a.number_of_vacancies)::bigint                                   as n_vacancies,
     count(*) filter (where c.is_data_ad)                                 as n_data_ads,
     count(*) filter (where c.mentions_core_bi)                           as n_core_bi_ads,
     count(*) filter (where c.mentions_power_bi)                          as n_power_bi_ads,

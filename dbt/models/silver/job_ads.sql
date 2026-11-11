@@ -4,9 +4,9 @@
 -- 2018–2019 kompletteras med ort och yrke från JobTechs rättade filer,
 -- arbetsgivaren klassas och återpublicerade annonser slås ihop.
 --
--- Annonstexten finns kvar här (search_text) eftersom ordlistan söker i
--- den. Silver ligger i den lokala DuckDB-filen och publiceras aldrig.
--- Gold innehåller ingen text.
+-- Annonstexten tas inte med hit. Ordlistan (ad_term_matches) läser den
+-- direkt från bronze för den rad som valts här, så att DuckDB-filen inte
+-- behöver bära miljontals annonstexter. Gold innehåller ingen text.
 
 with src as (
 
@@ -39,7 +39,6 @@ parsed as (
         try_cast(src.publication_date as timestamp)                          as published_at,
         try_cast(src.last_publication_date as timestamp)                     as last_published_at,
         src.headline,
-        lower(coalesce(src.headline, '') || ' ' || coalesce(src.description_text, '')) as search_text,
         src.description_text is not null                                     as has_description,
 
         -- Yrke: annonsens egen uppgift i första hand, annars kompletteringen

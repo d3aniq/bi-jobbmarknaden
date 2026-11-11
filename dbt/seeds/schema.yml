@@ -35,3 +35,13 @@ seeds:
     config:
       column_types:
         ssyk1: varchar
+
+  - name: enrichment_mapping
+    description: JobTechs berikade kompetensetiketter mappade till ordlistans termer.
+    columns:
+      - name: enrichment_label
+        data_tests: [unique, not_null]
+      - name: term_id
+        data_tests:
+          - relationships:
+              arguments: {to: ref('term_dictionary'), field: term_id}

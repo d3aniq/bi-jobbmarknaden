@@ -29,11 +29,23 @@ any_term as (
 
 ),
 
+texts as (
+
+    -- Texten för den rad som silver valde för varje annons
+    select
+        a.ad_id,
+        lower(coalesce(b.headline, '') || ' ' || coalesce(b.description_text, '')) as search_text,
+        lower(coalesce(b.headline, ''))                                           as headline_text
+    from {{ ref('job_ads') }} a
+    join {{ source('bronze', 'job_ads') }} b using (source_file, line_number)
+
+),
+
 candidates as (
 
-    select a.ad_id, a.search_text, lower(coalesce(a.headline, '')) as headline_text
-    from {{ ref('job_ads') }} a, any_term
-    where regexp_matches(a.search_text, any_term.rx)
+    select t.*
+    from texts t, any_term
+    where regexp_matches(t.search_text, any_term.rx)
 
 )
 

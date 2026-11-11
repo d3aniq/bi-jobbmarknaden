@@ -1,0 +1,35 @@
+table 'Län'
+	lineageTag: ce8a6cc9-ffcc-50bd-88cc-c1311bb4a398
+
+	column region_key
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: region_key
+		lineageTag: 9fcdbe1e-fdb2-5ba9-b5dc-a9db97b80665
+
+	column 'Län'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: region_name
+		lineageTag: da58fafd-9fc8-562a-a1d7-f12093ae4a84
+
+	column Region
+		dataType: string
+		summarizeBy: none
+		sourceColumn: region_group
+		lineageTag: c8fc1432-f6f7-59f4-9d09-4b5c70c6f794
+
+	column 'Västra Götaland'
+		dataType: boolean
+		summarizeBy: none
+		sourceColumn: is_vastra_gotaland
+		lineageTag: d94f0a8a-ee9b-5c05-8995-6fe1215db673
+
+	partition 'Län' = m
+		mode: import
+		source =
+				let
+				    Källa = Parquet.Document(File.Contents(DataFolder & "\dim_region.parquet"))
+				in
+				    Källa

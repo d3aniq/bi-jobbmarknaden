@@ -1,16 +1,16 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
-  "name": "78aece9117e9ea0e17a2",
+  "name": "ba2792693acd131ef503",
   "position": {
     "x": 640,
     "y": 84,
     "z": 3,
     "width": 616,
-    "height": 300,
+    "height": 320,
     "tabOrder": 3
   },
   "visual": {
-    "visualType": "clusteredBarChart",
+    "visualType": "barChart",
     "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
@@ -21,14 +21,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Yrke"
+                      "Entity": "Term"
                     }
                   },
-                  "Property": "Datayrkesfamilj"
+                  "Property": "Term"
                 }
               },
-              "queryRef": "Yrke.Datayrkesfamilj",
-              "nativeQueryRef": "Datayrkesfamilj"
+              "queryRef": "Term.Term",
+              "nativeQueryRef": "Term"
             }
           ]
         },
@@ -42,11 +42,39 @@
                       "Entity": "Mått"
                     }
                   },
-                  "Property": "Dataannonser"
+                  "Property": "Båda källorna"
                 }
               },
-              "queryRef": "Mått.Dataannonser",
-              "nativeQueryRef": "Dataannonser"
+              "queryRef": "Mått.Båda källorna",
+              "nativeQueryRef": "Båda källorna"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Mått"
+                    }
+                  },
+                  "Property": "Bara ordlistan"
+                }
+              },
+              "queryRef": "Mått.Bara ordlistan",
+              "nativeQueryRef": "Bara ordlistan"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Mått"
+                    }
+                  },
+                  "Property": "Bara JobTechs berikning"
+                }
+              },
+              "queryRef": "Mått.Bara JobTechs berikning",
+              "nativeQueryRef": "Bara JobTechs berikning"
             }
           ]
         }
@@ -61,7 +89,7 @@
                     "Entity": "Mått"
                   }
                 },
-                "Property": "Dataannonser"
+                "Property": "Båda källorna"
               }
             },
             "direction": "Descending"
@@ -71,7 +99,7 @@
       }
     },
     "objects": {
-      "labels": [
+      "legend": [
         {
           "properties": {
             "show": {
@@ -81,21 +109,10 @@
                 }
               }
             },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#52514E'"
-                    }
-                  }
-                }
-              }
-            },
-            "fontSize": {
+            "position": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "'Top'"
                 }
               }
             }
@@ -118,13 +135,6 @@
       "valueAxis": [
         {
           "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
-                }
-              }
-            },
             "showAxisTitle": {
               "expr": {
                 "Literal": {
@@ -149,6 +159,45 @@
                 }
               }
             }
+          },
+          "selector": {
+            "metadata": "Mått.Båda källorna"
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#1BAF7A'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Mått.Bara ordlistan"
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#EB6834'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Mått.Bara JobTechs berikning"
           }
         }
       ]
@@ -167,7 +216,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Dataannonser per datayrkesfamilj (arbetsgivarens yrkesval)'"
+                  "Value": "'Ordlistan mot JobTechs automatiska tolkning, alla annonser'"
                 }
               }
             },

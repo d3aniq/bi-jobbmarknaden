@@ -98,11 +98,21 @@ parsed as (
         on patch.original_id = src.original_id
        and src.municipality_code is null
 
+),
+
+deduplicated as (
+
+    select
+        *,
+        cast(published_at as date) as published_date,
+        count(*) over (partition by ad_id) as n_source_rows
+    from parsed
+    qualify row_number() over (partition by ad_id order by published_at, source_file, line_number) = 1
+
 )
 
-select
-    *,
-    cast(published_at as date) as published_date,
-    count(*) over (partition by ad_id) as n_source_rows
-from parsed
-qualify row_number() over (partition by ad_id order by published_at, source_file, line_number) = 1
+-- Annonser med publiceringsdatum efter filens period (2051, 2099 i källan)
+-- går till rejected_ads i stället, med orsak.
+select *
+from deduplicated
+where published_at < {{ file_period_end('source_file') }}

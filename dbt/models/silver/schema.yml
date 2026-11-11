@@ -29,6 +29,14 @@ models:
               arguments:
                 values: ['annons', 'komplettering', 'saknas']
 
+  - name: rejected_ads
+    description: Annonser som inte går vidare till job_ads, med orsak.
+    columns:
+      - name: ad_id
+        data_tests: [unique, not_null]
+      - name: reason
+        data_tests: [not_null]
+
   - name: ad_term_matches
     description: En rad per annons och term som annonsen nämner enligt ordlistan.
     data_tests:

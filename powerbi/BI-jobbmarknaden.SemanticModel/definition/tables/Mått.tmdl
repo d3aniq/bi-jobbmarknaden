@@ -30,6 +30,30 @@ table Mått
 		displayFolder: 1 Volym
 		lineageTag: 25a53c3a-afa8-5197-b8f8-8ec4cc43e598
 
+	/// Annonser där både ordlistan och JobTechs berikning hittar termen.
+	measure 'Båda källorna' = SUM('Källjämförelse'[n_both])
+		formatString: #,0
+		displayFolder: 8 Källjämförelse
+		lineageTag: 39376baa-05f1-5f06-93dc-d3bd6cdbe542
+
+	/// Annonser där bara ordlistan hittar termen.
+	measure 'Bara ordlistan' = SUM('Källjämförelse'[n_dictionary_only])
+		formatString: #,0
+		displayFolder: 8 Källjämförelse
+		lineageTag: 99f89e31-0eb4-52ae-8973-111da065821a
+
+	/// Annonser där bara JobTechs automatiska tolkning hittar termen.
+	measure 'Bara JobTechs berikning' = SUM('Källjämförelse'[n_enrichment_only])
+		formatString: #,0
+		displayFolder: 8 Källjämförelse
+		lineageTag: e88b745c-34e5-5de8-b2b4-9601a1cbb721
+
+	/// Andel av alla träffar där källorna är överens.
+	measure 'Överensstämmelse' = DIVIDE([Båda källorna], [Båda källorna] + [Bara ordlistan] + [Bara JobTechs berikning])
+		formatString: 0%
+		displayFolder: 8 Källjämförelse
+		lineageTag: 3f4e05eb-361b-5fd8-94e7-9aec8f1d49f7
+
 	/// Unika dataannonser som nämner minst en av de valda termerna. Filter på datum, ort och yrke når bryggan via Dataannons (en-till-många), utan dubbelriktad filtrering.
 	measure 'Annonser med term' = DISTINCTCOUNT('Annons-term'[ad_id])
 		formatString: #,0
@@ -75,8 +99,9 @@ table Mått
 			        REMOVEFILTERS('Term'),
 			        TREATAS(termerB, 'Term'[term_id])
 			    )
+			VAR sammaTerm = SELECTEDVALUE('Term'[term_id]) = SELECTEDVALUE('Term B'[term_id_b])
 			RETURN
-			    DIVIDE(COUNTROWS(INTERSECT(annonserA, annonserB)), COUNTROWS(annonserA))
+			    IF(NOT sammaTerm, DIVIDE(COUNTROWS(INTERSECT(annonserA, annonserB)), COUNTROWS(annonserA)))
 		formatString: 0%
 		displayFolder: 2 Termer
 		lineageTag: c730f43d-5654-56b1-8ab8-c7ee37d310ee

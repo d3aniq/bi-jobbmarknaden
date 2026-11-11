@@ -15,5 +15,6 @@ ref table Arbetsgivare
 ref table Dataannons
 ref table 'Annons-term'
 ref table Annonsvolym
+ref table 'Källjämförelse'
 ref table 'Anställda (SCB)'
 ref table 'Term B'

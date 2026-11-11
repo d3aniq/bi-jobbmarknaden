@@ -100,9 +100,17 @@ def write_report(root: Path, model_dir_name: str, pages: list, theme: dict):
     d = root / "definition"
     if d.exists():
         # OneDrive och Power BI Desktop kan hålla mappar låsta en kort stund
-        import shutil, time
+        import os, shutil, stat, time
+
+        def force(func, path, _exc):
+            os.chmod(path, stat.S_IWRITE)  # OneDrive kan sätta skrivskydd
+            func(path)
+
         for _ in range(10):
-            shutil.rmtree(d, ignore_errors=True)
+            try:
+                shutil.rmtree(d, onexc=force)
+            except OSError:
+                pass
             if not d.exists():
                 break
             time.sleep(1)

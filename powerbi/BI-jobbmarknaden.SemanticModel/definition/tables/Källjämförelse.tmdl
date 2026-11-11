@@ -1,0 +1,48 @@
+table 'Källjämförelse'
+	lineageTag: ecb34f6b-384e-554f-9ba5-ad43d6a97c29
+
+	column term_id
+		dataType: string
+		isHidden
+		summarizeBy: none
+		sourceColumn: term_id
+		lineageTag: 82b634b3-2eda-5257-8dd6-c696d72dc4eb
+
+	column 'År (jämförelse)'
+		dataType: int64
+		formatString: 0
+		summarizeBy: none
+		sourceColumn: year
+		lineageTag: db586157-98e7-5b47-a919-a6590bc9d835
+
+	column n_both
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: n_both
+		lineageTag: 80a66cca-5038-5c6e-b6db-54c5d7939c8c
+
+	column n_dictionary_only
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: n_dictionary_only
+		lineageTag: fbc68c55-e80d-51bf-bc3c-ee93bf678f8f
+
+	column n_enrichment_only
+		dataType: int64
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		sourceColumn: n_enrichment_only
+		lineageTag: 834744c2-caab-5d8e-bf5b-d6414b8c5949
+
+	partition 'Källjämförelse' = m
+		mode: import
+		source =
+				let
+				    Källa = Parquet.Document(File.Contents(DataFolder & "\fact_term_source.parquet"))
+				in
+				    Källa

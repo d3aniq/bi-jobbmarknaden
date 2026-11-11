@@ -49,3 +49,7 @@ relationship 7af58396-5322-5678-bf81-04ba04f57348
 relationship 4c7e457b-d8e0-541a-9488-6af40a6f14b1
 	fromColumn: 'Annons-term'.term_id
 	toColumn: Term.term_id
+
+relationship b3855806-859f-5af2-ae6b-68917e415275
+	fromColumn: 'Källjämförelse'.term_id
+	toColumn: Term.term_id

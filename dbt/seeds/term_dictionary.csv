@@ -1,0 +1,41 @@
+term_id,term,category,vendor,launched_year,pattern,exclude_pattern,require_pattern,note
+power_bi,Power BI,Visualisering,Microsoft,2013,power[ -]?bi|powerbi,,,"Nio av tio annonser i stickprovet skriver ""powerbi"" i ett ord"
+tableau,Tableau,Visualisering,Salesforce,2003,tableau,,,
+qlik,Qlik,Visualisering,Qlik,1994,qlik ?view|qlik ?sense|qlik,,,QlikView och Qlik Sense räknas som samma verktyg
+looker,Looker,Visualisering,Google,2012,looker( studio)?,,,
+ssrs,SSRS,Visualisering,Microsoft,2004,ssrs|reporting services,,,
+excel,Excel,Kalkyl,Microsoft,1985,excel,,,Baslinje att jämföra BI-verktygen mot
+fabric,Microsoft Fabric,Plattform,Microsoft,2023,microsoft fabric|ms fabric|fabric (data|lakehouse|warehouse|capacity|notebooks?)|onelake,service fabric|ip-fabric,,"""Fabric"" ensamt är oftast textil eller Azure Service Fabric"
+databricks,Databricks,Plattform,Databricks,2013,databricks,,,
+snowflake,Snowflake,Plattform,Snowflake,2014,snowflake,,,
+synapse,Azure Synapse,Plattform,Microsoft,2019,azure synapse|synapse analytics|synapse,neuro|synaps[^e],,
+bigquery,BigQuery,Plattform,Google,2011,big ?query,,,
+sql_server,SQL Server,Databas,Microsoft,1989,sql ?server|mssql,,,
+dbt,dbt,Transformering,dbt Labs,2016,dbt|data build tool,dialektisk|beteendeterapi|kbt|psykiatri|psykolog|terapi|behandl|ätstörning|självskad,,DBT är också dialektisk beteendeterapi
+adf,Azure Data Factory,Transformering,Microsoft,2015,azure data factory|data factory,,,
+ssis,SSIS,Transformering,Microsoft,2005,ssis|integration services,,,
+airflow,Airflow,Transformering,Apache,2015,apache airflow|airflow,ventilation|hvac|luftflöde|fläkt|kyl,,Airflow är också luftflöde i ventilationsannonser
+spark,Spark,Transformering,Apache,2014,pyspark|apache spark|spark sql|spark streaming,,,
+kafka,Kafka,Transformering,Apache,2011,kafka,,,
+sql,SQL,Språk,,1974,sql|t-sql|tsql|pl/sql|mysql|postgre ?sql|postgres,,,Alla SQL-dialekter räknas som SQL
+python,Python,Språk,,1991,python,,,
+r,R,Språk,,1993,"r-programmering|rstudio|r studio|tidyverse|r shiny|(python|sql|sas|spss|stata)( och | eller | and | or | ?/ ?| ?, ?)r|r( och | eller | and | or | ?/ ?| ?, ?)(python|sql|sas|spss|stata)",,,En bokstav kräver sammanhang
+dax,DAX,Språk,Microsoft,2010,dax,,power[ -]?bi|powerbi|tabular|analysis services|power pivot|fabric,DAX är också ett aktieindex
+power_query,Power Query,Språk,Microsoft,2013,power query|m-kod|m-språket,,,
+sas,SAS,Språk,SAS Institute,1976,sas,scandinavian airlines|flyg|kabin|cabin|airline|pilot,statistik|analys|programmer|data,SAS är också ett flygbolag
+spss,SPSS,Språk,IBM,1968,spss,,,
+azure,Azure,Moln,Microsoft,2010,azure,,,
+aws,AWS,Moln,Amazon,2006,aws|amazon web services,,,
+gcp,Google Cloud,Moln,Google,2008,gcp|google cloud( platform)?,,,
+data_warehouse,Data warehouse,Metod,,1990,data ?warehouse|datalager|dwh|edw,,,
+lakehouse,Lakehouse och data lake,Metod,,2010,lakehouse|data ?lake|datasjö,,,
+dimensional_modeling,Dimensionell modellering,Metod,,1996,stjärnschema|star ?schema|dimensionell modellering|dimensional model(l)?ing|kimball,,,
+data_modeling,Datamodellering,Metod,,1976,datamodellering|data ?model(l)?ing|datamodeller,,,
+etl,ETL/ELT,Metod,,1990,etl|elt,,,
+semantic_model,Semantisk modell,Metod,Microsoft,2012,semantisk(a)? modell(er)?|semantic model(s)?|tabular model(s)?|analysis services|ssas,,,
+machine_learning,Maskininlärning,AI,,1959,maskininlärning|machine learning,,,
+genai,Generativ AI,AI,,2022,generativ ai|gen ?ai|llm(s)?|chatgpt|openai|stora språkmodeller|large language model(s)?,,,
+bi_role,Business intelligence (roll),Roll,,1989,business intelligence|bi[ -]?utvecklare|bi[ -]?developer|bi[ -]?analytiker|bi[ -]?analyst|bi[ -]?konsult|bi[ -]?specialist|bi[ -]?engineer,,,
+data_engineer_role,Data engineer (roll),Roll,,2011,data ?engineer(s|ing)?|dataingenjör(er)?,,,
+data_analyst_role,Dataanalytiker (roll),Roll,,1990,data ?analyst(s)?|dataanalytiker|data ?analytics,,,
+data_scientist_role,Data scientist (roll),Roll,,2008,data ?scientist(s)?|data science,,,

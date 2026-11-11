@@ -1,0 +1,29 @@
+version: 2
+
+sources:
+  - name: bronze
+    description: >
+      Bronze, skrivet av ingest/load_bronze.py. Allt som text, inget tolkat.
+      Kontaktfälten läses aldrig in.
+    tables:
+      - name: job_ads
+        description: En rad per rad i JobTechs filer. Samma annons kan finnas i flera filer.
+        meta:
+          external_location: "read_parquet('{{ env_var('BI_JOBB_DATA_DIR', 'C:/data/bi-jobbmarknaden') }}/bronze/jobtech/{{ env_var('BI_JOBB_MODE', 'sample') }}/*.parquet')"
+      - name: job_ads_load_log
+        description: Antal rader per fil, räknade av inläsningen oberoende av Parquet-skrivningen.
+        meta:
+          external_location: "read_csv('{{ env_var('BI_JOBB_DATA_DIR', 'C:/data/bi-jobbmarknaden') }}/bronze/jobtech/{{ env_var('BI_JOBB_MODE', 'sample') }}/_load_log.csv', header=true, all_varchar=true)"
+      - name: location_patch
+        description: >
+          Komplettering för 2018–2019 (ort och yrke), från JobTechs rättade
+          metadatafiler. Kopplas på original_id.
+        meta:
+          external_location: "read_parquet('{{ env_var('BI_JOBB_DATA_DIR', 'C:/data/bi-jobbmarknaden') }}/bronze/jobtech/location_patch/*.parquet')"
+      - name: location_patch_load_log
+        meta:
+          external_location: "read_csv('{{ env_var('BI_JOBB_DATA_DIR', 'C:/data/bi-jobbmarknaden') }}/bronze/jobtech/location_patch/_load_log.csv', header=true, all_varchar=true)"
+      - name: scb_employment
+        description: SCB:s PxWeb-svar för YREG60, YREG60N och YREG60BAS, oförändrade.
+        meta:
+          external_location: "read_json('{{ env_var('BI_JOBB_DATA_DIR', 'C:/data/bi-jobbmarknaden') }}/landing/scb/*.json', filename=true, format='auto', maximum_object_size=500000000)"

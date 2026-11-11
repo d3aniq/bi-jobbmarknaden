@@ -1,0 +1,61 @@
+version: 2
+
+models:
+  - name: job_ads
+    description: En rad per unik annons, med tolkade fält. Innehåller annonstext och publiceras aldrig.
+    data_tests:
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "ssyk4 is null or regexp_full_match(ssyk4, '[0-9]{4}')"
+    columns:
+      - name: ad_id
+        description: original_id om det finns (2017 och framåt), annars JobTechs id.
+        data_tests: [unique, not_null]
+      - name: published_at
+        data_tests: [not_null]
+      - name: employer_type
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['privat sektor', 'offentlig sektor', 'enskild näringsidkare', 'okänd']
+      - name: location_source
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['annons', 'komplettering', 'bara län', 'saknas']
+      - name: occupation_source
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['annons', 'komplettering', 'saknas']
+
+  - name: ad_term_matches
+    description: En rad per annons och term som annonsen nämner enligt ordlistan.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [ad_id, term_id]
+    columns:
+      - name: term_id
+        data_tests:
+          - relationships:
+              arguments: {to: ref('term_dictionary'), field: term_id}
+      - name: ad_id
+        data_tests:
+          - relationships:
+              arguments: {to: ref('job_ads'), field: ad_id}
+
+  - name: ad_classification
+    columns:
+      - name: ad_id
+        data_tests: [unique, not_null]
+
+  - name: employment
+    description: SCB:s yrkesregister i långt format, alla tre tabellerna.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [source_table, year, region_code, ssyk4]
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "employed is null or employed >= 0"

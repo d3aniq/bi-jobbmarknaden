@@ -1,0 +1,125 @@
+version: 2
+
+models:
+  - name: fact_job_ad
+    description: En rad per unik dataannons. Ingen text, inga personuppgifter.
+    columns:
+      - name: ad_id
+        data_tests: [unique, not_null]
+      - name: published_date
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_date'), field: date}
+      - name: municipality_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_municipality'), field: municipality_key}
+      - name: ssyk4_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments: {to: ref('dim_occupation_group'), field: ssyk4_key}
+      - name: occupation_key
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_occupation'), field: occupation_key}
+      - name: employer_key
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_employer'), field: employer_key}
+
+  - name: bridge_ad_term
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [ad_id, term_id]
+    columns:
+      - name: ad_id
+        data_tests:
+          - relationships:
+              arguments: {to: ref('fact_job_ad'), field: ad_id}
+      - name: term_id
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_term'), field: term_id}
+
+  - name: fact_ad_volume
+    description: Alla annonser per månad, kommun, yrkesgrupp och arbetsgivartyp.
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [month_start, municipality_key, ssyk4_key, employer_type]
+    columns:
+      - name: month_start
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_date'), field: date}
+      - name: municipality_key
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_municipality'), field: municipality_key}
+      - name: ssyk4_key
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_occupation_group'), field: ssyk4_key}
+
+  - name: fact_employment
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns: [year, region_key, ssyk4_key]
+    columns:
+      - name: region_key
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_region'), field: region_key}
+      - name: ssyk4_key
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_occupation_group'), field: ssyk4_key}
+
+  - name: dim_date
+    columns:
+      - name: date
+        data_tests: [unique, not_null]
+
+  - name: dim_term
+    columns:
+      - name: term_id
+        data_tests: [unique, not_null]
+
+  - name: dim_occupation_group
+    columns:
+      - name: ssyk4_key
+        data_tests: [unique, not_null]
+
+  - name: dim_occupation
+    columns:
+      - name: occupation_key
+        data_tests: [unique, not_null]
+
+  - name: dim_region
+    columns:
+      - name: region_key
+        data_tests: [unique, not_null]
+
+  - name: dim_municipality
+    columns:
+      - name: municipality_key
+        data_tests: [unique, not_null]
+      - name: region_key
+        data_tests:
+          - relationships:
+              arguments: {to: ref('dim_region'), field: region_key}
+
+  - name: dim_employer
+    description: Bara juridiska personer. Plats 3–4 i organisationsnumret är 20 eller högre.
+    data_tests:
+      - dbt_utils.expression_is_true:
+          arguments:
+            expression: "substr(employer_key, 3, 1) not in ('0', '1')"
+    columns:
+      - name: employer_key
+        data_tests: [unique, not_null]

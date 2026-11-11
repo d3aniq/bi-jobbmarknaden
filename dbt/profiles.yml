@@ -1,0 +1,11 @@
+# Ingen hemlighet i den här filen. DuckDB-databasen ligger i datamappen,
+# en fil per körläge, så att stickprov och fullt läge inte blandas.
+bi_jobbmarknaden:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "{{ env_var('BI_JOBB_DATA_DIR', 'C:/data/bi-jobbmarknaden') }}/warehouse_{{ env_var('BI_JOBB_MODE', 'sample') }}.duckdb"
+      threads: 8
+      settings:
+        preserve_insertion_order: false

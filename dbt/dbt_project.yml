@@ -1,0 +1,25 @@
+name: bi_jobbmarknaden
+version: "1.0.0"
+config-version: 2
+profile: bi_jobbmarknaden
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+
+clean-targets: ["target", "dbt_packages"]
+
+
+models:
+  bi_jobbmarknaden:
+    silver:
+      +schema: silver
+      +materialized: table
+    gold:
+      +schema: gold
+      +materialized: table
+
+seeds:
+  bi_jobbmarknaden:
+    +schema: silver

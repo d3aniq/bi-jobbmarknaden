@@ -1,0 +1,37 @@
+version: 2
+
+seeds:
+  - name: term_dictionary
+    description: Ordlistan. Ett reguljärt uttryck per term, med undantag och krav på sammanhang.
+    config:
+      column_types:
+        launched_year: integer
+    columns:
+      - name: term_id
+        data_tests: [unique, not_null]
+      - name: category
+        data_tests:
+          - relationships:
+              arguments: {to: ref('term_category'), field: category}
+      - name: pattern
+        data_tests: [not_null]
+
+  - name: term_category
+    columns:
+      - name: category
+        data_tests: [unique]
+
+  - name: occupation_rules
+    columns:
+      - name: rule_order
+        data_tests: [unique]
+
+  - name: gothenburg_region
+    config:
+      column_types:
+        municipality_code: varchar
+
+  - name: ssyk_major_group
+    config:
+      column_types:
+        ssyk1: varchar

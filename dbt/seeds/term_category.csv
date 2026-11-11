@@ -1,0 +1,11 @@
+category,category_sort,is_core_bi,description
+Visualisering,1,true,Rapport- och visualiseringsverktyg
+Plattform,2,true,Dataplattformar och molnlager för analys
+Transformering,3,true,Verktyg för att flytta och omvandla data
+Språk,4,false,Frågespråk och programspråk
+Databas,5,false,Databashanterare
+Metod,6,true,Arbetssätt och arkitekturbegrepp inom BI
+Moln,7,false,Molnleverantörer
+AI,8,false,Maskininlärning och generativ AI
+Roll,9,true,Rolltitlar i annonstexten
+Kalkyl,10,false,Kalkylprogram som baslinje

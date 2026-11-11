@@ -1,0 +1,6 @@
+rule_order,pattern,data_role_family,note
+1,data ?warehouse|business intelligence|^bi[ -]|bi-utvecklare|bi-specialist,BI,Arbetsgivarens yrkesval pekar på BI
+2,data ?engineer,Data engineering,"""Dataingenjör"" i taxonomin ligger under elektroteknik och räknas inte"
+3,data ?scientist|datavetare,Data science,
+4,dataanalytiker|data ?analyst|databasanalytiker|affärsanalytiker|business analyst|verksamhetsanalytiker,Analys,
+5,databas,Databas,Databasutvecklare och databasadministratörer

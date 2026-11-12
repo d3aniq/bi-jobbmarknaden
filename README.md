@@ -1,5 +1,7 @@
 # bi-jobbmarknaden
 
+*[In English](README.en.md)*
+
 Vad efterfrågas i BI-jobben i Västsverige? Hur har efterfrågan på Power BI,
 Qlik, Databricks, dbt, Fabric och de andra verktygen förändrats i
 platsannonserna sedan 2016, och hur skiljer sig Västra Götaland från
@@ -13,7 +15,6 @@ med en semantisk modell som är skriven som kod.
 All data är öppen (CC0). Inga API-nycklar, inga personuppgifter, och allt
 kan byggas om från källan.
 
-*English summary at the end.*
 
 ![Översikt](docs/images/01-oversikt.png)
 
@@ -407,29 +408,3 @@ Python, DuckDB, dbt (dbt-duckdb, dbt_utils), Parquet, Power BI Desktop
   <https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AM__AM0208__AM0208M/>
 
 Förstudien, skriven före koden, finns i [`docs/forstudie.md`](docs/forstudie.md).
-
----
-
-## English summary
-
-**What do BI job ads in western Sweden ask for, and how has that changed
-since 2016?** This project ingests all 7.7 million job ads published on
-Sweden's public employment service job board (Platsbanken, open data
-under CC0) from 2016 to Q3 2026, builds a medallion pipeline with dbt and
-DuckDB (73 tests), and answers in a Power BI report whose semantic model
-(TMDL) and report (PBIR) are generated as code.
-
-Findings:
-
-- Data and BI ads nearly tripled as a share of all ads: 0.43 % in 2016, 1.21 % in 2026.
-- Västra Götaland has the second highest density in Sweden: 1.6 data ads per 1,000 employees in the same occupations (2022–2024), after Stockholm (2.7).
-- Qlik fell from 21.5 % of data ads to 6.9 %. Power BI overtook Qlik in 2023–2024 but has not grown since. Platforms are what grow: Databricks went from 1.2 % (2021) to 8.2 % (2026), and 12.5 % in Västra Götaland.
-- Nine in ten ads that mention Power BI are not classified as data jobs by the employer: most are software developers and financial controllers.
-- The job board's own automated skill tagging never finds Databricks or Snowflake, misses 58 % of Power BI ads, and tags 2,776 ads with "dbt" that are almost all healthcare, where DBT means dialectical behaviour therapy.
-
-Data quality findings are part of the result: a source system change in
-2020 that alters how ads are written, a 1 % sample that differs from the
-full data, ads dated 2051 and 2099, and four different meanings of "DBT"
-found by a quality gate. The term-matching step went from over an hour to
-57 seconds once regex patterns were compiled as constants rather than
-read per row.

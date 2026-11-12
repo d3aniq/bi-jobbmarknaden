@@ -408,3 +408,7 @@ Python, DuckDB, dbt (dbt-duckdb, dbt_utils), Parquet, Power BI Desktop
   <https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AM__AM0208__AM0208M/>
 
 Förstudien, skriven före koden, finns i [`docs/forstudie.md`](docs/forstudie.md).
+
+## Licens
+
+Koden är licensierad under MIT, se [`LICENSE`](LICENSE). Datan kommer från källorna ovan och omfattas av deras licenser (CC0).

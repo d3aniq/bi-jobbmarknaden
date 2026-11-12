@@ -423,3 +423,7 @@ Python, DuckDB, dbt (dbt-duckdb, dbt_utils), Parquet, Power BI Desktop
 
 The pre-study, written before the code, is in
 [`docs/forstudie.md`](docs/forstudie.md) (in Swedish).
+
+## Licence
+
+The code is licensed under MIT, see [`LICENSE`](LICENSE). The data comes from the sources above and is covered by their licences (CC0).

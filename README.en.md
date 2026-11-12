@@ -1,4 +1,4 @@
-# bi-jobbmarknaden
+# sweden-bi-job-market
 
 *[På svenska](README.md)*
 

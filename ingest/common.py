@@ -17,7 +17,7 @@ DATA_DIR = Path(os.environ.get("BI_JOBB_DATA_DIR", "C:/data/bi-jobbmarknaden"))
 LANDING = DATA_DIR / "landing"
 MANIFEST = LANDING / "manifest.csv"
 MANIFEST_FIELDS = ["source", "mode", "url", "file", "downloaded_at", "bytes", "sha256"]
-USER_AGENT = "bi-jobbmarknaden/1.0 (portfolio project)"
+USER_AGENT = "sweden-bi-job-market/1.0 (portfolio project)"
 
 
 def sha256(path: Path) -> str:

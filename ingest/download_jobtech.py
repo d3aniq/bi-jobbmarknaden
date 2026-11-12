@@ -25,9 +25,11 @@ def files(full: bool) -> list[tuple[str, str]]:
             for p in PERIODS]
 
 
-# De berikade filerna för 2018 och 2019 saknar arbetsort helt. JobTech har
-# publicerat rättade orter i separata metadatafiler (utan annonstext).
-# De kopplas på original_id i silver och behövs i båda körlägena.
+# Stickprovsfilerna för 2018 och 2019 saknar arbetsort och yrke helt (de
+# fullständiga filerna har dem). JobTech har publicerat rättade orter och
+# yrken i separata metadatafiler utan annonstext. De kopplas på original_id
+# i silver, så att stickprovet blir användbart. I fullt läge används de
+# bara där en annons saknar ort.
 LOCATION_PATCHES = [
     (f"{BASE}/metadata/{y}_municipality_patched_beta1_metadata_jsonl.zip",
      f"{y}_municipality_patched_beta1_metadata_jsonl.zip") for y in (2018, 2019)

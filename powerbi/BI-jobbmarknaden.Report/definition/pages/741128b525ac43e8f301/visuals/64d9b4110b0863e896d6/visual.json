@@ -31,7 +31,73 @@
               {
                 "textRuns": [
                   {
-                    "value": "",
+                    "value": "• Källsystem: 2016–2019 är konverterade från det äldre Platsbanken. 2020 byts systemet, och 2026 tillkommer ett nytt. \"Power BI\" med mellanslag nästan försvinner ur texterna vid bytet 2020.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Stickprovet är inte samma data som helheten: i stickprovsfilerna saknar 2018 och 2019 ort och yrke helt, och 2023 är 0,3 % i stället för 1 %. Pipelinen kompletterar stickprovet från JobTechs rättade filer.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• 2020: 7 % av annonserna saknar kommun, och det året är inte rättat.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Tre annonser är publicerade 2051 och 2099. De avvisas med orsak i stället för att hamna i diagrammen.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• 61 000 återpubliceringar är sammanslagna till en annons var.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Distansfältet är satt i under 0,5 % av annonserna och analyseras inte.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Platsbanken är inte hela arbetsmarknaden. Konsultuppdrag och jobb som bara annonseras på LinkedIn saknas.",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#52514E"

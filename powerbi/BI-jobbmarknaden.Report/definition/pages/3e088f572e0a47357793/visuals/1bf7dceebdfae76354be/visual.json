@@ -24,11 +24,11 @@
                       "Entity": "Mått"
                     }
                   },
-                  "Property": "Andel utan datayrke"
+                  "Property": "Power BI-annonser utan datayrke"
                 }
               },
-              "queryRef": "Mått.Andel utan datayrke",
-              "nativeQueryRef": "Andel utan datayrke"
+              "queryRef": "Mått.Power BI-annonser utan datayrke",
+              "nativeQueryRef": "Power BI-annonser utan datayrke"
             }
           ]
         }
@@ -53,6 +53,13 @@
                       "Value": "'#0B0B0B'"
                     }
                   }
+                }
+              }
+            },
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
                 }
               }
             }
@@ -87,7 +94,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Dataannonser utan datayrke'"
+                  "Value": "'Power BI-annonser utan datayrke'"
                 }
               }
             },

@@ -8,10 +8,10 @@ excel,Excel,Kalkyl,Microsoft,1985,excel,,,Baslinje att jämföra BI-verktygen mo
 fabric,Microsoft Fabric,Plattform,Microsoft,2023,microsoft fabric|ms fabric|fabric (data|lakehouse|warehouse|capacity|notebooks?)|onelake,service fabric|ip-fabric,,"""Fabric"" ensamt är oftast textil eller Azure Service Fabric"
 databricks,Databricks,Plattform,Databricks,2013,databricks,,,
 snowflake,Snowflake,Plattform,Snowflake,2014,snowflake,,,
-synapse,Azure Synapse,Plattform,Microsoft,2019,azure synapse|synapse analytics|synapse,neuro|synaps[^e],,
+synapse,Azure Synapse,Plattform,Microsoft,2019,azure synapse|synapse analytics|synapse (pipelines?|workspaces?|sql),,,"Synapse ensamt är också ett företag, ett utbildningssystem och ett Google-team"
 bigquery,BigQuery,Plattform,Google,2011,big ?query,,,
 sql_server,SQL Server,Databas,Microsoft,1989,sql ?server|mssql,,,
-dbt,dbt,Transformering,dbt Labs,2016,dbt|data build tool,dialektisk|beteendeterapi|kbt|psykiatri|psykolog|terapi|behandl|ätstörning|självskad,,DBT är också dialektisk beteendeterapi
+dbt,dbt,Transformering,dbt Labs,2016,dbt|data build tool,dialektisk|beteendeterapi|kbt|cbt|psykiatri|psykolog|terapi|behandl|ätstörning|självskad|biopsi|mammografi|tomosyntes|bröstdiagnostik|dövblind,sql|python|databricks|snowflake|bigquery|redshift|airflow|data ?warehouse|lakehouse|pipeline|dataplattform|data platform|analytics engineer|data engineer|(^|[^a-zåäö])(etl|elt)([^a-zåäö]|$),"DBT är också dialektisk beteendeterapi, digital bröst-tomosyntes och ett dövblindteam"
 adf,Azure Data Factory,Transformering,Microsoft,2015,azure data factory|data factory,,,
 ssis,SSIS,Transformering,Microsoft,2005,ssis|integration services,,,
 airflow,Airflow,Transformering,Apache,2015,apache airflow|airflow,ventilation|hvac|luftflöde|fläkt|kyl,,Airflow är också luftflöde i ventilationsannonser

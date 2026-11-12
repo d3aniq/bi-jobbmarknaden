@@ -42,6 +42,8 @@ MAIN_REGIONS = ["Västra Götaland", "Stockholm", "Skåne", "Övriga Sverige"]
 # Färgen följer det den visar, inte ordningen: samma term har samma färg i alla diagram.
 SERIES_COLORS = {
     ("Län", "Region"): {"Västra Götaland": BLUE, "Stockholm": ORANGE, "Skåne": AQUA, "Övriga Sverige": YELLOW},
+    ("Annonsvolym", "Källsystem"): {"Äldre Platsbanken": "#8A8984", "Platsbanken": BLUE, "Annonsera": AQUA,
+                                     "Jobposting": ORANGE, "AIS": YELLOW},
     ("Term", "Term"): {
         "Power BI": BLUE, "Qlik": ORANGE, "Tableau": AQUA, "Looker": YELLOW, "SSRS": MAGENTA,
         "Databricks": BLUE, "Microsoft Fabric": ORANGE, "Snowflake": AQUA, "Azure Synapse": YELLOW, "BigQuery": MAGENTA,
@@ -87,7 +89,8 @@ def notes(p, name, x, y, w, h, heading, body_key, z):
 def card(p, name, x, y, w, h, measure, label, z):
     return visual(p, name, "card", x, y, w, h,
                   roles={"Values": [proj(meas(M, measure))]},
-                  objects={"labels": [{"properties": {"fontSize": lit(24), "color": color(INK)}}],
+                  objects={"labels": [{"properties": {"fontSize": lit(24), "color": color(INK),
+                                                      "labelDisplayUnits": lit(1)}}],
                            "categoryLabels": [{"properties": {"show": lit(False)}}]},
                   container=title(label, 10), z=z)
 
@@ -120,8 +123,9 @@ def bars(p, name, x, y, w, h, heading, category, value, filters=None, vtype="clu
     v = visual(p, name, vtype, x, y, w, h,
                roles={"Category": [proj(category)], "Y": [proj(value)]},
                extra_query=sort_by(value),
-               objects={"labels": [{"properties": {"show": lit(labels), "color": color(INK2), "fontSize": lit(9)}}],
-                        "categoryAxis": [{"properties": {"showAxisTitle": lit(False)}}],
+               objects={"labels": [{"properties": {"show": lit(labels), "color": color(INK2), "fontSize": lit(9),
+                                                   "labelDisplayUnits": lit(1)}}],
+                        "categoryAxis": [{"properties": {"showAxisTitle": lit(False), "maxMarginFactor": lit(40)}}],
                         "valueAxis": [{"properties": {"show": lit(False), "showAxisTitle": lit(False)}}],
                         "dataPoint": [{"properties": {"fill": color(BLUE)}}]},
                container=title(heading), z=z)
@@ -129,7 +133,7 @@ def bars(p, name, x, y, w, h, heading, category, value, filters=None, vtype="clu
 
 
 def stacked(p, name, x, y, w, h, heading, category, values, colors, z=0):
-    v = visual(p, name, "barChart", x, y, w, h,
+    v = visual(p, name, "hundredPercentStackedBarChart", x, y, w, h,
                roles={"Category": [proj(category)], "Y": [proj(m) for m in values]},
                extra_query=sort_by(values[0]),
                objects={"legend": [{"properties": {"show": lit(True), "position": lit("Top")}}],
@@ -138,6 +142,17 @@ def stacked(p, name, x, y, w, h, heading, category, values, colors, z=0):
                         "dataPoint": [{"properties": {"fill": color(c)},
                                        "selector": {"metadata": f"{M}.{m['Measure']['Property']}"}}
                                       for m, c in zip(values, colors)]},
+               container=title(heading), z=z)
+    return v
+
+
+def stacked_columns(p, name, x, y, w, h, heading, category, value, series, z=0):
+    v = visual(p, name, "columnChart", x, y, w, h,
+               roles={"Category": [proj(category)], "Y": [proj(value)], "Series": [proj(series)]},
+               objects={"legend": [{"properties": {"show": lit(True), "position": lit("Top")}}],
+                        "categoryAxis": [{"properties": {"showAxisTitle": lit(False)}}],
+                        "valueAxis": [{"properties": {"showAxisTitle": lit(False), "gridlineColor": color("#EEEEEE")}}],
+                        "dataPoint": series_colors(series)},
                container=title(heading), z=z)
     return v
 
@@ -206,8 +221,8 @@ def p_skifte():
     return {"name": p, "display": "Verktygsskiftet", "visuals": v}
 
 
-COMBO_TERMS = ["Power BI", "Qlik", "Tableau", "Excel", "SQL", "Python", "DAX", "Azure", "Databricks",
-               "Microsoft Fabric", "Snowflake", "dbt", "Azure Data Factory", "Data warehouse", "Generativ AI"]
+COMBO_TERMS = ["Power BI", "Qlik", "Tableau", "Excel", "SQL", "Python", "Azure", "Databricks",
+               "Microsoft Fabric", "Snowflake", "dbt", "Generativ AI"]
 
 
 def p_kombinationer():
@@ -231,15 +246,15 @@ def p_bijobb():
     return {"name": p, "display": "Vad är ett BI-jobb", "visuals": [
         header(p, "Vad är ett BI-jobb?",
                "Arbetsgivarens yrkesval jämfört med vad annonsen faktiskt efterfrågar."),
-        card(p, "k1", 24, 84, 296, 92, "Andel utan datayrke", "Dataannonser utan datayrke", 1),
+        card(p, "k1", 24, 84, 296, 92, "Power BI-annonser utan datayrke", "Power BI-annonser utan datayrke", 1),
         bars(p, "yrken_pbi", 24, 192, 600, 512, "Yrken i annonser som nämner Power BI, topp 15",
              col("Yrke", "Yrke"), meas(M, "Annonser med term"),
              filters=[in_filter("fT", "Term", "Term", ["Power BI"]),
                       topn_filter("fTop", "Yrke", "Yrke", M, "Annonser med term", 15)], z=2),
-        stacked(p, "kallor", 640, 84, 616, 320, "Ordlistan mot JobTechs automatiska tolkning, alla annonser",
+        stacked(p, "kallor", 640, 84, 616, 440, "Ordlistan mot JobTechs automatiska tolkning: andel av träffarna",
                 TERM, [meas(M, "Båda källorna"), meas(M, "Bara ordlistan"), meas(M, "Bara JobTechs berikning")],
                 [BLUE, AQUA, ORANGE], z=3),
-        notes(p, "fynd", 640, 420, 616, 284, "Vad det betyder", "bijobb", 4),
+        notes(p, "fynd", 640, 536, 616, 168, "Vad det betyder", "bijobb", 4),
     ]}
 
 
@@ -255,9 +270,10 @@ def p_var():
         bars(p, "gbg", 640, 84, 616, 304, "Göteborgsregionen: dataannonser per kommun, 2016 – 2026 K3",
              col("Kommun", "Kommun"), meas(M, "Dataannonser"),
              filters=[in_filter("fGbg", "Kommun", "Göteborgsregionen", [True])], z=2),
-        line(p, "distans", 24, 400, 600, 304, "Andel som anger distansarbete",
-             YEAR, [meas(M, "Andel distans"), meas(M, "Andel distans, alla annonser")],
-             filters=[range_filter("fAr", "Datum", "År", 2016)], z=3),
+        line(p, "offentlig", 24, 400, 600, 304, "Andel offentlig sektor bland dataannonser (känd sektor, 2021 –)",
+             YEAR, [meas(M, "Andel offentlig sektor")], series=REGION,
+             filters=[range_filter("fAr", "Datum", "År", 2021),
+                      in_filter("fReg", "Län", "Region", MAIN_REGIONS)], z=3),
         notes(p, "fynd", 640, 400, 616, 304, "Vad det betyder", "var", 4),
     ]}
 
@@ -266,8 +282,8 @@ def p_kvalitet():
     p = "kvalitet"
     return {"name": p, "display": "Datakvalitet", "visuals": [
         header(p, "Datakvalitet", "Det här är vad datan klarar av, och var den brister."),
-        bars(p, "per_manad", 24, 84, 1232, 280, "Alla annonser per publiceringsmånad",
-             col("Datum", "Månadsstart"), meas(M, "Annonser"), vtype="clusteredColumnChart", z=1, labels=False),
+        stacked_columns(p, "per_manad", 24, 84, 1232, 280, "Alla annonser per publiceringsmånad och källsystem",
+                        col("Datum", "Månadsstart"), meas(M, "Annonser"), col("Annonsvolym", "Källsystem"), z=1),
         matrix(p, "ortskalla", 24, 380, 600, 324, "Varifrån orten kommer (dataannonser)",
                col("Dataannons", "Ortskälla"), YEAR, meas(M, "Dataannonser"), z=2),
         notes(p, "fynd", 640, 380, 616, 324, "Kända brister", "kvalitet", 3),
@@ -276,8 +292,6 @@ def p_kvalitet():
 
 if __name__ == "__main__":
     pages = [p_oversikt(), p_skifte(), p_kombinationer(), p_bijobb(), p_var(), p_kvalitet()]
-    # Kolumndiagrammet per månad ska sorteras i tidsordning, inte efter värde
-    pages[5]["visuals"][1]["visual"]["query"].pop("sortDefinition", None)
     write_report(ROOT / "BI-jobbmarknaden.Report", "BI-jobbmarknaden.SemanticModel", pages, THEME)
     (ROOT / "BI-jobbmarknaden.pbip").write_text(
         '{\n  "$schema": "https://developer.microsoft.com/json-schemas/fabric/pbip/pbipProperties/1.0.0/schema.json",\n'

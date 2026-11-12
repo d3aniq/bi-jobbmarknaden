@@ -106,6 +106,7 @@ TABLES = {
         ("municipality_key", "municipality_key", "string", True, None, None, None),
         ("ssyk4_key", "ssyk4_key", "string", True, None, None, None),
         ("employer_type", "Arbetsgivartyp (alla)", "string", False, None, None, None),
+        ("source_system", "Källsystem", "string", False, None, None, None),
         ("n_ads", "n_ads", "int64", True, "0", None, "sum"),
         ("n_vacancies", "n_vacancies", "int64", True, "0", None, "sum"),
         ("n_data_ads", "n_data_ads", "int64", True, "0", None, "sum"),
@@ -185,9 +186,6 @@ MEASURES = [
     ("Annonser per 1 000 anställda",
      "VAR perAr =\n    ADDCOLUMNS(VALUES('Datum'[År]), \"@annonser\", [Annonser], \"@anstallda\", [Anställda])\nVAR medScb = FILTER(perAr, NOT ISBLANK([@anstallda]))\nRETURN DIVIDE(SUMX(medScb, [@annonser]), SUMX(medScb, [@anstallda])) * 1000",
      "0.0", "4 SCB", None),
-    ("Andel distans", "DIVIDE(CALCULATE([Dataannonser], 'Dataannons'[Distans] = TRUE()), [Dataannonser])",
-     "0.0%", "5 Villkor", "Andel dataannonser som anger distansarbete."),
-    ("Andel distans, alla annonser", "DIVIDE(SUM('Annonsvolym'[n_remote_ads]), [Annonser])", "0.0%", "5 Villkor", None),
     ("Andel kräver erfarenhet",
      "DIVIDE(CALCULATE([Dataannonser], 'Dataannons'[Kräver erfarenhet] = TRUE()), [Dataannonser])",
      "0.0%", "5 Villkor", None),
@@ -198,6 +196,10 @@ MEASURES = [
      "DIVIDE(CALCULATE([Dataannonser], 'Dataannons'[Datayrke enligt arbetsgivaren] = FALSE()), [Dataannonser])",
      "0.0%", "6 Vad är ett BI-jobb",
      "Dataannonser där arbetsgivaren valt ett yrke som inte är ett datayrke, till exempel controller."),
+    ("Power BI-annonser utan datayrke",
+     "CALCULATE([Andel utan datayrke], 'Dataannons'[Nämner Power BI] = TRUE())",
+     "0%", "6 Vad är ett BI-jobb",
+     "Andel av annonserna som nämner Power BI där arbetsgivaren inte valt ett datayrke."),
     ("Andel utan ort", "DIVIDE(CALCULATE([Annonser], 'Kommun'[Kommun] = \"Län saknas, kommun saknas\"), [Annonser])",
      "0.0%", "7 Datakvalitet", None),
     ("Senaste annonsdatum", "MAX('Dataannons'[published_date])", "yyyy-mm-dd", "7 Datakvalitet", None),
@@ -318,3 +320,26 @@ order = ["Mått"] + list(TABLES) + ["Term B"]
     '{\n  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/semanticModel/definitionProperties/1.0.0/schema.json",\n  "version": "4.2",\n  "settings": {}\n}\n',
     encoding="utf-8")
 print("ok", len(MEASURES), "mått")
+
+# Modellvyn: tabellerna placerade som ett stjärnschema i stället för
+# Power BI:s automatiska layout. Faktatabellerna i mitten, dimensionerna runt om.
+import json
+LAYOUT = {
+    "Mått": (20, 20, 220), "Datum": (330, 20, 220), "Term": (1000, 20, 220), "Term B": (1310, 20, 180),
+    "Anställda (SCB)": (20, 300, 220), "Annonsvolym": (330, 300, 260), "Dataannons": (650, 260, 320),
+    "Annons-term": (1000, 300, 160), "Källjämförelse": (1310, 260, 200),
+    "Län": (20, 640, 200), "Kommun": (330, 640, 200), "Yrkesgrupp": (650, 640, 200),
+    "Yrke": (1000, 640, 200), "Arbetsgivare": (1310, 640, 200),
+}
+TAGS = {name: str(uuid.uuid5(uuid.NAMESPACE_URL, "bi-jobb/" + name)) for name in TABLES}
+TAGS["Term B"] = str(uuid.uuid5(uuid.NAMESPACE_URL, "bi-jobb/TermB"))
+TAGS["Mått"] = str(uuid.uuid5(uuid.NAMESPACE_URL, "bi-jobb/Matt"))
+nodes = [{"location": {"x": x, "y": y}, "nodeIndex": name, "nodeLineageTag": TAGS[name],
+          "size": {"height": h, "width": 250}, "zIndex": i}
+         for i, (name, (x, y, h)) in enumerate(LAYOUT.items())]
+(ROOT / "diagramLayout.json").write_text(json.dumps({
+    "version": "1.1.0",
+    "diagrams": [{"ordinal": 0, "scrollPosition": {"x": 0, "y": 0}, "nodes": nodes, "name": "Alla tabeller",
+                  "zoomValue": 80, "pinKeyFieldsToTop": False, "showExtraHeaderInfo": False,
+                  "hideKeyFieldsWhenCollapsed": False, "tablesLocked": False}],
+    "selectedDiagram": "Alla tabeller", "defaultDiagram": "Alla tabeller"}, indent=2, ensure_ascii=False), encoding="utf-8")

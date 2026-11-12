@@ -3,10 +3,10 @@
   "name": "c18117f55baee812c1ca",
   "position": {
     "x": 640,
-    "y": 420,
+    "y": 536,
     "z": 4,
     "width": 616,
-    "height": 284,
+    "height": 168,
     "tabOrder": 4
   },
   "visual": {
@@ -31,7 +31,29 @@
               {
                 "textRuns": [
                   {
-                    "value": "",
+                    "value": "Nio av tio Power BI-annonser har ett yrke som inte är ett datayrke, oftast systemutvecklare eller controller.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "JobTechs automatiska tolkning hittar aldrig Databricks eller Snowflake och missar 58 % av Power BI-annonserna. Den räknar däremot 2 776 dbt-annonser som nästan alla är vård, där DBT är dialektisk beteendeterapi.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Olika källor. Ett svar: det krävs alla tre.",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#52514E"

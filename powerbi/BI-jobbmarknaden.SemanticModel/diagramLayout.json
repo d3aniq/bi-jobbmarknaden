@@ -1,0 +1,204 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 20,
+            "y": 20
+          },
+          "nodeIndex": "Mått",
+          "nodeLineageTag": "bf687d9c-79bd-5a7a-a828-294220df7319",
+          "size": {
+            "height": 220,
+            "width": 250
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 330,
+            "y": 20
+          },
+          "nodeIndex": "Datum",
+          "nodeLineageTag": "ef314980-6469-5d89-b179-07fda0ec054f",
+          "size": {
+            "height": 220,
+            "width": 250
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 1000,
+            "y": 20
+          },
+          "nodeIndex": "Term",
+          "nodeLineageTag": "016bbc0b-2fc5-5ebd-8259-6eb19e023d24",
+          "size": {
+            "height": 220,
+            "width": 250
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 1310,
+            "y": 20
+          },
+          "nodeIndex": "Term B",
+          "nodeLineageTag": "a2d3ee8b-0455-570f-9eee-b98de37a41d3",
+          "size": {
+            "height": 180,
+            "width": 250
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 20,
+            "y": 300
+          },
+          "nodeIndex": "Anställda (SCB)",
+          "nodeLineageTag": "042d8f28-a561-5f9e-a158-ae34fb4cfc51",
+          "size": {
+            "height": 220,
+            "width": 250
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 330,
+            "y": 300
+          },
+          "nodeIndex": "Annonsvolym",
+          "nodeLineageTag": "5c619865-0a9e-5873-8f35-0a4fa33aa8ef",
+          "size": {
+            "height": 260,
+            "width": 250
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 650,
+            "y": 260
+          },
+          "nodeIndex": "Dataannons",
+          "nodeLineageTag": "ec699c7f-da0b-5357-a31d-e8bcac7dd593",
+          "size": {
+            "height": 320,
+            "width": 250
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 1000,
+            "y": 300
+          },
+          "nodeIndex": "Annons-term",
+          "nodeLineageTag": "cc19c3b9-94dd-5d15-8a7b-bfff7bbaf4bb",
+          "size": {
+            "height": 160,
+            "width": 250
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 1310,
+            "y": 260
+          },
+          "nodeIndex": "Källjämförelse",
+          "nodeLineageTag": "ecb34f6b-384e-554f-9ba5-ad43d6a97c29",
+          "size": {
+            "height": 200,
+            "width": 250
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 20,
+            "y": 640
+          },
+          "nodeIndex": "Län",
+          "nodeLineageTag": "ce8a6cc9-ffcc-50bd-88cc-c1311bb4a398",
+          "size": {
+            "height": 200,
+            "width": 250
+          },
+          "zIndex": 9
+        },
+        {
+          "location": {
+            "x": 330,
+            "y": 640
+          },
+          "nodeIndex": "Kommun",
+          "nodeLineageTag": "06a93702-5ac5-5fa6-a66b-b9c8d155e92c",
+          "size": {
+            "height": 200,
+            "width": 250
+          },
+          "zIndex": 10
+        },
+        {
+          "location": {
+            "x": 650,
+            "y": 640
+          },
+          "nodeIndex": "Yrkesgrupp",
+          "nodeLineageTag": "5594e237-924b-56c4-8801-d6defb94f367",
+          "size": {
+            "height": 200,
+            "width": 250
+          },
+          "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 1000,
+            "y": 640
+          },
+          "nodeIndex": "Yrke",
+          "nodeLineageTag": "ceb96260-7240-5a4d-8ad8-6ea79ec5335c",
+          "size": {
+            "height": 200,
+            "width": 250
+          },
+          "zIndex": 12
+        },
+        {
+          "location": {
+            "x": 1310,
+            "y": 640
+          },
+          "nodeIndex": "Arbetsgivare",
+          "nodeLineageTag": "3f5414e2-f6ce-5749-8757-17b83ae2b760",
+          "size": {
+            "height": 200,
+            "width": 250
+          },
+          "zIndex": 13
+        }
+      ],
+      "name": "Alla tabeller",
+      "zoomValue": 80,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Alla tabeller",
+  "defaultDiagram": "Alla tabeller"
+}

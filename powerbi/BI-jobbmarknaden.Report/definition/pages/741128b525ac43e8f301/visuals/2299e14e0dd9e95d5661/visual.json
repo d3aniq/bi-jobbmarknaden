@@ -10,7 +10,7 @@
     "tabOrder": 1
   },
   "visual": {
-    "visualType": "clusteredColumnChart",
+    "visualType": "columnChart",
     "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
@@ -49,35 +49,42 @@
               "nativeQueryRef": "Annonser"
             }
           ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Annonsvolym"
+                    }
+                  },
+                  "Property": "Källsystem"
+                }
+              },
+              "queryRef": "Annonsvolym.Källsystem",
+              "nativeQueryRef": "Källsystem"
+            }
+          ]
         }
       }
     },
     "objects": {
-      "labels": [
+      "legend": [
         {
           "properties": {
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             },
-            "color": {
-              "solid": {
-                "color": {
-                  "expr": {
-                    "Literal": {
-                      "Value": "'#52514E'"
-                    }
-                  }
-                }
-              }
-            },
-            "fontSize": {
+            "position": {
               "expr": {
                 "Literal": {
-                  "Value": "9D"
+                  "Value": "'Top'"
                 }
               }
             }
@@ -100,17 +107,21 @@
       "valueAxis": [
         {
           "properties": {
-            "show": {
+            "showAxisTitle": {
               "expr": {
                 "Literal": {
                   "Value": "false"
                 }
               }
             },
-            "showAxisTitle": {
-              "expr": {
-                "Literal": {
-                  "Value": "false"
+            "gridlineColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#EEEEEE'"
+                    }
+                  }
                 }
               }
             }
@@ -125,12 +136,202 @@
                 "color": {
                   "expr": {
                     "Literal": {
+                      "Value": "'#8A8984'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Annonsvolym"
+                          }
+                        },
+                        "Property": "Källsystem"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Äldre Platsbanken'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
                       "Value": "'#2A78D6'"
                     }
                   }
                 }
               }
             }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Annonsvolym"
+                          }
+                        },
+                        "Property": "Källsystem"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Platsbanken'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#1BAF7A'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Annonsvolym"
+                          }
+                        },
+                        "Property": "Källsystem"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Annonsera'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#EB6834'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Annonsvolym"
+                          }
+                        },
+                        "Property": "Källsystem"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Jobposting'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#EDA100'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Annonsvolym"
+                          }
+                        },
+                        "Property": "Källsystem"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'AIS'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
           }
         }
       ]
@@ -149,7 +350,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Alla annonser per publiceringsmånad'"
+                  "Value": "'Alla annonser per publiceringsmånad och källsystem'"
                 }
               }
             },

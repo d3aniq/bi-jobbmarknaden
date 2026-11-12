@@ -28,6 +28,12 @@ table Annonsvolym
 		sourceColumn: employer_type
 		lineageTag: d065a51b-57fc-5d2f-a90e-892d26889ff7
 
+	column 'Källsystem'
+		dataType: string
+		summarizeBy: none
+		sourceColumn: source_system
+		lineageTag: db0ca924-b505-54f3-bbe7-432ddf172eb1
+
 	column n_ads
 		dataType: int64
 		isHidden

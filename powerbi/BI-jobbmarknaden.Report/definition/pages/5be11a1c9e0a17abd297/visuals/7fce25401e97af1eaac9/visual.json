@@ -31,7 +31,40 @@
               {
                 "textRuns": [
                   {
-                    "value": "",
+                    "value": "Per anställd i samma yrkesgrupp och län har Stockholm flest dataannonser (2,7 per 1 000 anställda 2022–2024), följt av Västra Götaland (1,6) och Skåne (1,3).",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "I Göteborgsregionen ligger nästan alla dataannonser i Göteborg.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Offentlig sektor står för 13–18 % av dataannonserna med känd arbetsgivare i Sverige. I Västra Götaland är andelen lägre, 7–15 %.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Nämnaren är SCB:s yrkesregister, som finns till och med 2024. Kvoten räknas bara för år med SCB-siffror.",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#52514E"

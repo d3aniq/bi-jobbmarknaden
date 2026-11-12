@@ -353,3 +353,27 @@ upp den senare.
 - JobTech Taxonomy API: <https://taxonomy.api.jobtechdev.se/>
 - SCB, öppna data och licens: <https://www.scb.se/om-scb/om-scb.se-och-anvandningsvillkor/oppna-data-api/>
 - SCB, yrkesregistret (AM0208M): <https://www.statistikdatabasen.scb.se/pxweb/sv/ssd/START__AM__AM0208__AM0208M/>
+
+---
+
+## Efter bygget: vad som blev annorlunda
+
+Förstudien ovan är orörd, så att det går att se vad som var känt före
+koden. Det här visade sig under bygget:
+
+- **Luckan 2018–2019 finns bara i stickprovet.** De fullständiga filerna
+  har ort och yrke för 98–99 % av annonserna. Kompletteringen från
+  JobTechs rättade filer behövs bara för stickprovsläget.
+- **Stickprovet är inte 1 % varje år.** 2023 är 0,3 %.
+- **Källsystemet byts 2020 och 2026.** Det syntes inte i stickprovet men
+  är tydligt i full data, och det påverkar hur annonserna är skrivna.
+- **dbt har fyra betydelser**, inte två: verktyget, dialektisk
+  beteendeterapi, digital bröst-tomosyntes och ett dövblindteam. Termen
+  kräver nu datasammanhang.
+- **Synapse före 2019 är andra produkter.** Termen kräver nu "Azure
+  Synapse" eller "Synapse Analytics".
+- **Tre annonser är daterade 2051 och 2099.** De avvisas med orsak.
+- **Distansfältet är nästan aldrig satt** och analyseras inte.
+- **Ordlistan har 40 termer** och dbt kör 73 tester.
+- **Taxonomy-API:et användes inte.** SSYK-koderna och benämningarna i
+  annonserna räckte.

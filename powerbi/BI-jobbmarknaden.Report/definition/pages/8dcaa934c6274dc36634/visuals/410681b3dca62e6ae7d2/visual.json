@@ -443,13 +443,6 @@
                     [
                       {
                         "Literal": {
-                          "Value": "'DAX'"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "Literal": {
                           "Value": "'Azure'"
                         }
                       }
@@ -479,20 +472,6 @@
                       {
                         "Literal": {
                           "Value": "'dbt'"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'Azure Data Factory'"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'Data warehouse'"
                         }
                       }
                     ],
@@ -594,13 +573,6 @@
                     [
                       {
                         "Literal": {
-                          "Value": "'DAX'"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "Literal": {
                           "Value": "'Azure'"
                         }
                       }
@@ -630,20 +602,6 @@
                       {
                         "Literal": {
                           "Value": "'dbt'"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'Azure Data Factory'"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "Literal": {
-                          "Value": "'Data warehouse'"
                         }
                       }
                     ],

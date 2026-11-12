@@ -152,17 +152,6 @@ table Mått
 		displayFolder: 4 SCB
 		lineageTag: 93f55c4d-dd33-5af6-bbd5-bf765e8cd14f
 
-	/// Andel dataannonser som anger distansarbete.
-	measure 'Andel distans' = DIVIDE(CALCULATE([Dataannonser], 'Dataannons'[Distans] = TRUE()), [Dataannonser])
-		formatString: 0.0%
-		displayFolder: 5 Villkor
-		lineageTag: 8436b641-085d-581c-8ac9-35b8b3a98ecf
-
-	measure 'Andel distans, alla annonser' = DIVIDE(SUM('Annonsvolym'[n_remote_ads]), [Annonser])
-		formatString: 0.0%
-		displayFolder: 5 Villkor
-		lineageTag: 3ba3bb76-88ff-51a2-8ce7-38add616b715
-
 	measure 'Andel kräver erfarenhet' = DIVIDE(CALCULATE([Dataannonser], 'Dataannons'[Kräver erfarenhet] = TRUE()), [Dataannonser])
 		formatString: 0.0%
 		displayFolder: 5 Villkor
@@ -181,6 +170,12 @@ table Mått
 		formatString: 0.0%
 		displayFolder: 6 Vad är ett BI-jobb
 		lineageTag: 252c0806-f1c4-50e3-a85e-51ea02fd6977
+
+	/// Andel av annonserna som nämner Power BI där arbetsgivaren inte valt ett datayrke.
+	measure 'Power BI-annonser utan datayrke' = CALCULATE([Andel utan datayrke], 'Dataannons'[Nämner Power BI] = TRUE())
+		formatString: 0%
+		displayFolder: 6 Vad är ett BI-jobb
+		lineageTag: eb967408-8a70-534f-87ea-d252d1cee176
 
 	measure 'Andel utan ort' = DIVIDE(CALCULATE([Annonser], 'Kommun'[Kommun] = "Län saknas, kommun saknas"), [Annonser])
 		formatString: 0.0%

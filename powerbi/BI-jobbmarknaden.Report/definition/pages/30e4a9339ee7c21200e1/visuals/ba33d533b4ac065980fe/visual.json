@@ -31,7 +31,51 @@
               {
                 "textRuns": [
                   {
-                    "value": "",
+                    "value": "Qlik var det vanligaste BI-verktyget 2016 (21,5 % av dataannonserna). 2026 är andelen 6,9 %.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Power BI gick om Qlik i Västra Götaland 2023 och i hela Sverige 2024, men har sedan dess inte vuxit: 10,3 % 2024, 7,4 % 2026.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Det som växer är plattformarna. Databricks: 1,2 % 2021, 8,2 % 2026. dbt: 0,4 % till 5,5 %. Microsoft Fabric: 0,1 % 2023, 2,5 % 2026.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Generativ AI nämns i 6,8 % av dataannonserna 2026, från nästan noll 2022.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "SSIS och Tableau minskar långsamt.",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#52514E"

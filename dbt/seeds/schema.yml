@@ -4,6 +4,7 @@ seeds:
   - name: term_dictionary
     description: Ordlistan. Ett reguljärt uttryck per term, med undantag och krav på sammanhang.
     config:
+      delimiter: ","
       column_types:
         launched_year: integer
     columns:

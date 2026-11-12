@@ -80,6 +80,18 @@ parsed as (
         coalesce(try_cast(src.number_of_vacancies as integer), 1)            as number_of_vacancies,
         src.detected_language,
 
+        -- Källsystem. 2016–2019 är konverterade från det äldre Platsbanken
+        -- och saknar source_type. Under 2020 byts systemet, och 2026
+        -- tillkommer ett nytt. Trender över gränserna ska läsas med det i minnet.
+        case
+            when src.source_type is null then 'Äldre Platsbanken'
+            when src.source_type = 'VIA_PLATSBANKEN_DXA' then 'Platsbanken'
+            when src.source_type = 'VIA_ANNONSERA' then 'Annonsera'
+            when src.source_type = 'VIA_JOBPOSTING' then 'Jobposting'
+            when src.source_type = 'VIA_AIS' then 'AIS'
+            else src.source_type
+        end                                                                  as source_system,
+
         -- Arbetsgivare. En enskild näringsidkares organisationsnummer är
         -- personnumret: siffra 3–4 är då en månad (01–12). Juridiska
         -- personer har 20 eller högre där.

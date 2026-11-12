@@ -1,35 +1,34 @@
+-- depends_on: {{ ref('term_dictionary') }}
 -- En rad per annons och term som annonsen nämner.
 --
 -- Ordlistan (seeds/term_dictionary.csv) har tre delar per term:
---   pattern          det som ska hittas, som helt ord
+--   pattern          det som ska hittas, som helt ord (reguljärt uttryck)
 --   exclude_pattern  finns det här någonstans i annonsen räknas inte träffen
 --   require_pattern  måste också finnas i annonsen för att träffen ska räknas
 -- Alla mönster körs mot rubrik och beskrivning i gemener.
 --
--- Först filtreras annonserna med ett samlat mönster, så att de dyra
--- jämförelserna bara görs för de få procent som kan träffa alls.
+-- Prestanda: om mönstret läses från en kolumn kompilerar DuckDB om det
+-- reguljära uttrycket för varje rad. Mot 8,7 miljoner annonser tog det
+-- över en timme. Här läser dbt ordlistan när modellen körs och skriver
+-- in varje terms mönster som en konstant, en fråga per term. Samma
+-- träffar, cirka 50 gånger snabbare (uppmätt på 100 000 annonser).
+--
+-- Varje term prövas först utan ordgräns (billigt), och bara där det
+-- träffar med ordgräns (dyrare).
 
 {% set b = "[^a-z0-9åäöéü_]" %}
 
-with terms as (
+{% if execute %}
+    {% set terms = run_query(
+        "select term_id, pattern, exclude_pattern, require_pattern from "
+        ~ ref('term_dictionary') ~ " order by term_id"
+    ).rows %}
+{% else %}
+    {% set terms = [] %}
+{% endif %}
 
-    select
-        term_id,
-        '(^|{{ b }})(' || pattern || ')({{ b }}|$)' as rx,
-        exclude_pattern,
-        require_pattern
-    from {{ ref('term_dictionary') }}
 
-),
-
-any_term as (
-
-    select '(^|{{ b }})(' || string_agg(pattern, '|') || ')({{ b }}|$)' as rx
-    from {{ ref('term_dictionary') }}
-
-),
-
-texts as (
+with texts as (
 
     -- Texten för den rad som silver valde för varje annons
     select
@@ -43,18 +42,30 @@ texts as (
 
 candidates as (
 
-    select t.*
-    from texts t, any_term
-    where regexp_matches(t.search_text, any_term.rx)
+    -- Annonser som kan träffa minst en term, med ett samlat mönster
+    select *
+    from texts
+    where regexp_matches(
+        search_text,
+        {{ sql_string("(^|" ~ b ~ ")(" ~ (terms | map(attribute=1) | join("|")) ~ ")(" ~ b ~ "|$)") }}
+    )
 
 )
 
+{% for t in terms %}
+{% set rx = "(^|" ~ b ~ ")(" ~ t[1] ~ ")(" ~ b ~ "|$)" %}
 select
-    c.ad_id,
-    t.term_id,
-    regexp_matches(c.headline_text, t.rx) as in_headline
-from candidates c
-join terms t
-  on regexp_matches(c.search_text, t.rx)
-where (t.exclude_pattern is null or not regexp_matches(c.search_text, t.exclude_pattern))
-  and (t.require_pattern is null or regexp_matches(c.search_text, t.require_pattern))
+    ad_id,
+    '{{ t[0] }}' as term_id,
+    regexp_matches(headline_text, {{ sql_string(rx) }}) as in_headline
+from candidates
+where regexp_matches(search_text, {{ sql_string(t[1]) }})
+  and regexp_matches(search_text, {{ sql_string(rx) }})
+  {% if t[2] %}and not regexp_matches(search_text, {{ sql_string(t[2]) }}){% endif %}
+  {% if t[3] %}and regexp_matches(search_text, {{ sql_string(t[3]) }}){% endif %}
+{% if not loop.last %}union all{% endif %}
+{% endfor %}
+
+{% if terms | length == 0 %}
+select null::varchar as ad_id, null::varchar as term_id, null::boolean as in_headline where false
+{% endif %}

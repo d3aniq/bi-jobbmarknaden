@@ -1,6 +1,6 @@
--- Ort och yrke ska finnas för minst 90 % av annonserna varje år, efter
--- kompletteringen för 2018–2019. Utan kompletteringen saknar de två åren
--- ort och yrke helt, och det här testet är det som fångar det.
+-- Ort och yrke ska finnas för minst 90 % av annonserna varje år. I
+-- stickprovet saknar 2018 och 2019 ort och yrke helt, tills de
+-- kompletteras från JobTechs rättade filer. Det här testet fångar det.
 --
 -- Gränsen är 10 % och inte 5 %: 2020 saknar kommun i cirka 7 % av
 -- annonserna, och JobTech har inte rättat det året. Det redovisas i

@@ -1,6 +1,6 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.4.0/schema.json",
-  "name": "d4ef9a9405a04df4e204",
+  "name": "0f60a54e03ad2543f715",
   "position": {
     "x": 24,
     "y": 400,
@@ -42,25 +42,29 @@
                       "Entity": "Mått"
                     }
                   },
-                  "Property": "Andel distans"
+                  "Property": "Andel offentlig sektor"
                 }
               },
-              "queryRef": "Mått.Andel distans",
-              "nativeQueryRef": "Andel distans"
-            },
+              "queryRef": "Mått.Andel offentlig sektor",
+              "nativeQueryRef": "Andel offentlig sektor"
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
             {
               "field": {
-                "Measure": {
+                "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Mått"
+                      "Entity": "Län"
                     }
                   },
-                  "Property": "Andel distans, alla annonser"
+                  "Property": "Region"
                 }
               },
-              "queryRef": "Mått.Andel distans, alla annonser",
-              "nativeQueryRef": "Andel distans, alla annonser"
+              "queryRef": "Län.Region",
+              "nativeQueryRef": "Region"
             }
           ]
         }
@@ -157,6 +161,172 @@
             }
           }
         }
+      ],
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#2A78D6'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Län"
+                          }
+                        },
+                        "Property": "Region"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Västra Götaland'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#EB6834'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Län"
+                          }
+                        },
+                        "Property": "Region"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Stockholm'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#1BAF7A'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Län"
+                          }
+                        },
+                        "Property": "Region"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Skåne'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#EDA100'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "Län"
+                          }
+                        },
+                        "Property": "Region"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'Övriga Sverige'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -173,7 +343,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Andel som anger distansarbete'"
+                  "Value": "'Andel offentlig sektor bland dataannonser (känd sektor, 2021 –)'"
                 }
               }
             },
@@ -344,9 +514,83 @@
                   },
                   "Right": {
                     "Literal": {
-                      "Value": "2016L"
+                      "Value": "2021L"
                     }
                   }
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "name": "fReg",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Län"
+              }
+            },
+            "Property": "Region"
+          }
+        },
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "f",
+              "Entity": "Län",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "f"
+                          }
+                        },
+                        "Property": "Region"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Västra Götaland'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Stockholm'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Skåne'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'Övriga Sverige'"
+                        }
+                      }
+                    ]
+                  ]
                 }
               }
             }

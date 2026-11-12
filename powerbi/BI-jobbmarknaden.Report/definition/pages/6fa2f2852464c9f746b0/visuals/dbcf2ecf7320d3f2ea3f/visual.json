@@ -31,7 +31,40 @@
               {
                 "textRuns": [
                   {
-                    "value": "",
+                    "value": "Dataannonserna har nästan tredubblats som andel av alla annonser: från 0,43 % 2016 till 1,21 % 2026 (januari–september).",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Västra Götaland har näst flest dataannonser per anställd efter Stockholm: 1,6 per 1 000 anställda 2022–2024, mot 2,7 i Stockholm och 1,3 i Skåne.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Tyngdpunkten flyttar från rapportverktyg till plattformar. I Västra Götaland nämner 12,5 % av dataannonserna 2026 Databricks. Power BI ligger på 6,3 %.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Trender över 2020 ska läsas försiktigt: Platsbanken bytte system det året (se Datakvalitet).",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#52514E"

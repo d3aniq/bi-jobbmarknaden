@@ -31,7 +31,51 @@
               {
                 "textRuns": [
                   {
-                    "value": "",
+                    "value": "Läs raden: av annonserna med Power BI (rad) nämner 32 % också Excel och 30 % SQL (2022 och framåt, hela Sverige).",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Power BI står oftare bredvid Excel än bredvid Python. Det är ett verktyg för verksamheten, inte bara för datateamet.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Databricks är ett Azure-verktyg i Sverige: 71 % av annonserna med Databricks nämner också Azure, och 50 % Python.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Matrisen är inte symmetrisk. Att 32 % av Power BI-annonserna nämner Excel betyder inte att 32 % av Excel-annonserna nämner Power BI.",
+                    "textStyle": {
+                      "fontSize": "10pt",
+                      "color": "#52514E"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Diagonalen är tom med flit.",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#52514E"

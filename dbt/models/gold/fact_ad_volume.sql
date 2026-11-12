@@ -1,12 +1,13 @@
--- Fakta: alla annonser, aggregerade per månad, kommun, yrkesgrupp och
--- arbetsgivartyp. Nämnaren för andelar ("hur stor del av alla annonser"),
--- utan att modellen behöver bära miljontals rader.
+-- Fakta: alla annonser, aggregerade per månad, kommun, yrkesgrupp,
+-- arbetsgivartyp och källsystem. Nämnaren för andelar ("hur stor del av
+-- alla annonser"), utan att modellen behöver bära miljontals rader.
 
 select
     date_trunc('month', a.published_date)::date                         as month_start,
     {{ municipality_key('a.municipality_code', 'a.region_code') }}       as municipality_key,
     {{ ssyk4_key('a.ssyk4') }}                                           as ssyk4_key,
     a.employer_type,
+    a.source_system,
     count(*)                                                             as n_ads,
     sum(a.number_of_vacancies)::bigint                                   as n_vacancies,
     count(*) filter (where c.is_data_ad)                                 as n_data_ads,
